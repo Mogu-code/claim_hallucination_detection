@@ -2,7 +2,9 @@
 
 **Course:** BCSE306L — Natural Language Processing
 **Faculty:** Dr. Vijayaprabakaran K
-**Team:** [Add names + registration numbers]
+**Team:** 1. RIYA 
+          2. MOKSHDAA
+          3. ANIRUDH
 **Deliverables:** DA1 · DA2 · DA3
 
 ## Problem Statement
