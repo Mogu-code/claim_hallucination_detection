@@ -22,11 +22,10 @@ class RetrievalConfig:
 @dataclass
 class NLIConfig:
     model_name: str = "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"
-    # Decision thresholds -- tune these against a validation split, don't
-    # hand-wave them. Values below are reasonable untuned starting points.
-    entailment_threshold: float = 0.55
-    contradiction_threshold: float = 0.55
-    min_similarity_for_support: float = 0.35
+    # Decision thresholds tuned on FEVER dev tune subset (200 samples, seed=42)
+    entailment_threshold: float = 0.40
+    contradiction_threshold: float = 0.40
+    min_similarity_for_support: float = 0.20
 
 
 @dataclass

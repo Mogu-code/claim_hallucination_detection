@@ -88,6 +88,7 @@ if __name__ == "__main__":
     response = "Marie Curie was born in Paris in 1867. She won three Nobel Prizes."
     result = run_pipeline(response, index, verifier)
 
+    print(f"Backends in use: retrieval={index.active_backend}, verifier={verifier.active_backend}")
     print("Response:", result.response)
     print()
     for c in result.claims:

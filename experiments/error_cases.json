@@ -1,0 +1,202 @@
+[
+  {
+    "index": 1,
+    "claim": "WGBH-TV is located in the capital of Maine.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "WGBX 's studios are located on Guest Street in Boston , and its transmitter is located in Needham , Massachusetts .",
+    "entailment_score": 0.0041,
+    "contradiction_score": 0.8774,
+    "similarity_score": 0.5951
+  },
+  {
+    "index": 8,
+    "claim": "Yale University's alumni includes five billionaires.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "Yale has graduated many notable alumni , including five U.S. Presidents , 19 U.S. Supreme Court Justices , 20 living billionaires , and many heads of state .",
+    "entailment_score": 0.2913,
+    "contradiction_score": 0.1296,
+    "similarity_score": 0.823
+  },
+  {
+    "index": 12,
+    "claim": "The Hundred Years' War does not include the Edwardian Era War.",
+    "gold_label": "Contradicted",
+    "predicted_label": "Unsupported",
+    "evidence_text": "Historians commonly divide the war into three phases separated by truces : the Edwardian Era War -LRB- 1337 -- 1360 -RRB- ; the Caroline War -LRB- 1369 -- 1389 -RRB- ; and the Lancastrian War -LRB- 1415 -- 1453 -RRB- .",
+    "entailment_score": 0.2671,
+    "contradiction_score": 0.3303,
+    "similarity_score": 0.4359
+  },
+  {
+    "index": 17,
+    "claim": "Bad Romance was profitable around the world.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "It achieved worldwide success by topping the charts in a variety of markets , ultimately selling 12 million copies worldwide , thus becoming one of the best-selling singles of all time .",
+    "entailment_score": 0.2617,
+    "contradiction_score": 0.0052,
+    "similarity_score": 0.3762
+  },
+  {
+    "index": 31,
+    "claim": "Earl Scruggs was an actor",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "Beginning with his first recordings with Bill Monroe and His Blue Grass Boys , and later with Lester Flatt , Earl Scruggs and the Foggy Mountain Boys , Earl Scruggs introduced a vocabulary of `` licks '' , short musical phrases that are reused in many different songs .",
+    "entailment_score": 0.0081,
+    "contradiction_score": 0.7974,
+    "similarity_score": 0.5728
+  },
+  {
+    "index": 37,
+    "claim": "Kenneth Lonergan was born in New York.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Supported",
+    "evidence_text": "Kenneth Lonergan -LRB- born 1962 -RRB- , New York playwright , screenwriter , and director",
+    "entailment_score": 0.5957,
+    "contradiction_score": 0.0023,
+    "similarity_score": 0.699
+  },
+  {
+    "index": 46,
+    "claim": "Baz Luhrmann's film Australia is solely an epic historical romantic comedy.",
+    "gold_label": "Supported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "His 2008 film Australia is an epic historical romantic drama film starring Hugh Jackman and Nicole Kidman .",
+    "entailment_score": 0.0279,
+    "contradiction_score": 0.7871,
+    "similarity_score": 0.5061
+  },
+  {
+    "index": 48,
+    "claim": "Sheryl Lee has yet to appear in a film as of 2016.",
+    "gold_label": "Contradicted",
+    "predicted_label": "Unsupported",
+    "evidence_text": "Notable film roles include as Astrid Kirchherr in Backbeat -LRB- 1994 -RRB- , as well as a lead role in the drama Mother Night -LRB- 1996 -RRB- , based on the novel by Kurt Vonnegut .",
+    "entailment_score": 0.0028,
+    "contradiction_score": 0.0276,
+    "similarity_score": 0.177
+  },
+  {
+    "index": 51,
+    "claim": "Vedam is a 2010 Indian drama film.",
+    "gold_label": "Supported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "The film was dubbed in Malayalam and Krish later remade the film in Tamil as Vaanam -LRB- 2011 -RRB- , with Silambarasan , Bharath and Prakash Raj , while Anushka and Saranya reprised their roles .",
+    "entailment_score": 0.0618,
+    "contradiction_score": 0.627,
+    "similarity_score": 0.4882
+  },
+  {
+    "index": 59,
+    "claim": "Ann Richards was the head of the executive branch of Maine's government.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "Ann Richards -LRB- 1933 -- 2006 -RRB- was an American politician and the 45th Governor of Texas .",
+    "entailment_score": 0.0293,
+    "contradiction_score": 0.4333,
+    "similarity_score": 0.6042
+  },
+  {
+    "index": 68,
+    "claim": "James VI and I was a major advocate of a single parliament for England.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "He was a major advocate of a single parliament for England and Scotland .",
+    "entailment_score": 0.0666,
+    "contradiction_score": 0.01,
+    "similarity_score": 0.7747
+  },
+  {
+    "index": 75,
+    "claim": "Asylum Records is an American record label founded in 1971 by David Geffen and musician Elliot Roberts.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "Roberts later formed Lookout Management with David Geffen , and helped to create Geffen 's Asylum Records in 1970 , which merged with Elektra Records in 1972 to form Elektra/Asylum Records .",
+    "entailment_score": 0.0503,
+    "contradiction_score": 0.8521,
+    "similarity_score": 0.6654
+  },
+  {
+    "index": 83,
+    "claim": "Akkineni Nageswara Rao shot Daag.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "Vedam Jaishankar , cricket correspondent",
+    "entailment_score": 0.0066,
+    "contradiction_score": 0.853,
+    "similarity_score": 0.3818
+  },
+  {
+    "index": 85,
+    "claim": "Henry VIII (TV serial) features an English actor in a leading role.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "Raymond Andrew `` Ray '' Winstone -LRB- -LSB- \u02c8w\u026anst\u0259n -RSB- born 19 February 1957 -RRB- is an English film and television actor .",
+    "entailment_score": 0.066,
+    "contradiction_score": 0.0026,
+    "similarity_score": 0.3803
+  },
+  {
+    "index": 87,
+    "claim": "Matthias Corvinus had one of the largest collections of books in Europe during the Renaissance in the 1450's.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "Matthias patronized art and science ; his royal library , the Bibliotheca Corviniana , was one of the largest collections of books in Europe .",
+    "entailment_score": 0.2603,
+    "contradiction_score": 0.0045,
+    "similarity_score": 0.7571
+  },
+  {
+    "index": 93,
+    "claim": "Entourage (film) was a film adaptation of a comic.",
+    "gold_label": "Contradicted",
+    "predicted_label": "Unsupported",
+    "evidence_text": "It serves as a continuation of the HBO TV series of the same name created by Ellin .",
+    "entailment_score": 0.0384,
+    "contradiction_score": 0.0162,
+    "similarity_score": 0.1764
+  },
+  {
+    "index": 115,
+    "claim": "Liverpool was where The Beatles came together.",
+    "gold_label": "Supported",
+    "predicted_label": "Unsupported",
+    "evidence_text": "The popularity of The Beatles and other groups from the Merseybeat era contributes to Liverpool 's status as a tourist destination .",
+    "entailment_score": 0.3386,
+    "contradiction_score": 0.0109,
+    "similarity_score": 0.7519
+  },
+  {
+    "index": 119,
+    "claim": "Paul Nicholls created Joe Wicks.",
+    "gold_label": "Contradicted",
+    "predicted_label": "Unsupported",
+    "evidence_text": "He is best known for his roles as Joe Wicks in BBC 's EastEnders , and as DS Sam Casey in ITV 's Law & Order : UK .",
+    "entailment_score": 0.0424,
+    "contradiction_score": 0.0339,
+    "similarity_score": 0.3615
+  },
+  {
+    "index": 125,
+    "claim": "Caroline Kennedy served as Japanese Ambassador to the United States.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "Early in the primary race for the 2008 presidential election , Kennedy and her uncle Ted endorsed Democratic candidate Barack Obama for President ; she later stumped for him in Florida , Indiana , and Ohio , served as co-chair of his Vice Presidential Search Committee , and addressed the 2008 Democratic National Convention in Denver .",
+    "entailment_score": 0.0056,
+    "contradiction_score": 0.6128,
+    "similarity_score": 0.3571
+  },
+  {
+    "index": 129,
+    "claim": "House is a sitcom.",
+    "gold_label": "Unsupported",
+    "predicted_label": "Contradicted",
+    "evidence_text": "A house may have a separate dining room , or the eating area may be integrated into another room .",
+    "entailment_score": 0.0037,
+    "contradiction_score": 0.6567,
+    "similarity_score": 0.3825
+  }
+]

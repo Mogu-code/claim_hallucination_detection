@@ -7,7 +7,8 @@ def decompose_into_claims(response: str) -> list[str]:
     if not response or not response.strip():
         return []
         
-    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', response) if s.strip()]
+    sentence_pattern = re.compile(r'(?<!\bDr\.)(?<!\bMr\.)(?<!\bMrs\.)(?<!\bProf\.)(?<!\bU\.S\.)(?<=[.!?])\s+')
+    sentences = [s.strip() for s in sentence_pattern.split(response) if s.strip()]
     claims = []
     
     last_subject = ""
@@ -16,13 +17,33 @@ def decompose_into_claims(response: str) -> list[str]:
         if not sentence: continue
         
         # Split on conjunctions
-        parts = re.split(r',?\s+(?:and|but)\s+', sentence)
+        parts = re.split(r',?\s+(and|but)\s+', sentence)
         
-        for i, part in enumerate(parts):
+        merged_parts = [parts[0].strip()]
+        for i in range(1, len(parts), 2):
+            conj = parts[i]
+            next_part = parts[i+1].strip()
+            
+            left_words = merged_parts[-1].split()
+            right_words = next_part.split()
+            
+            should_split = False
+            if len(left_words) >= 3 and len(right_words) >= 3:
+                first_right = right_words[0]
+                if first_right.islower() and first_right not in ["the", "a", "an"]:
+                    should_split = True
+                    
+            if should_split:
+                merged_parts.append(next_part)
+            else:
+                merged_parts[-1] = merged_parts[-1] + " " + conj + " " + next_part
+                
+        for i, part in enumerate(merged_parts):
             part = part.strip()
             if not part: continue
             
             words = part.split()
+            if not words: continue
             first_word = words[0]
             
             # Resolve leading pronoun
@@ -36,7 +57,8 @@ def decompose_into_claims(response: str) -> list[str]:
                     part = last_subject + " " + part
                     words = part.split()
                     
-            claims.append(part)
+            if len(words) > 1:
+                claims.append(part)
             
             # Update subject based on the first part
             if i == 0:

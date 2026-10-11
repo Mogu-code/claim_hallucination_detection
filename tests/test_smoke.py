@@ -31,12 +31,30 @@ def test_claim_decomposition_empty_input():
     assert decompose_into_claims("   ") == []
 
 
+def test_claim_decomposition_guards():
+    # Should not split short or non-verb conjunctions
+    claims = decompose_into_claims("Marie won the Nobel Prize in Physics and Chemistry.")
+    assert len(claims) == 1
+    
+    claims2 = decompose_into_claims("Pierre and Marie Curie discovered Radium.")
+    assert len(claims2) == 1
+
+    # Should not split on abbreviations
+    claims3 = decompose_into_claims("Dr. Smith met Prof. Jones in the U.S. today.")
+    assert len(claims3) == 1
+    
+    # 1903/1911 sentence test (verb phrase follows conjunction)
+    claims4 = decompose_into_claims("Marie Curie won the Nobel Prize in Physics in 1903 and won the Nobel Prize in Chemistry in 1911.")
+    assert len(claims4) == 2
+    assert "won the Nobel Prize in Chemistry in 1911" in claims4[1]
+
+
 def test_evidence_retrieval_returns_ranked_results():
     docs = [
         "Marie Curie was born in Warsaw, Poland in 1867.",
         "The Eiffel Tower was completed in 1889 in Paris.",
     ]
-    index = EvidenceIndex(backend="bm25")  # force BM25 for a deterministic, network-free test
+    index = EvidenceIndex(backend="lexical")  # force BM25 for a deterministic, network-free test
     index.build_index(docs)
     results = index.retrieve_evidence("When was Marie Curie born?", top_k=1)
     assert len(results) == 1
@@ -44,22 +62,23 @@ def test_evidence_retrieval_returns_ranked_results():
 
 
 def test_evidence_retrieval_empty_index_raises():
-    index = EvidenceIndex(backend="bm25")
+    index = EvidenceIndex(backend="lexical")
     with pytest.raises(ValueError):
         index.build_index([])
 
 
-def test_verifier_returns_valid_label():
-    verifier = ClaimVerifier()
+@pytest.fixture(scope="session")
+def verifier():
+    return ClaimVerifier()
+
+def test_verifier_returns_valid_label(verifier):
     result = verifier.verify_claim(
         "Marie Curie was born in Warsaw.",
         ["Marie Curie was born in Warsaw, Poland in 1867."],
     )
     assert result.label in (ClaimLabel.SUPPORTED, ClaimLabel.CONTRADICTED, ClaimLabel.UNSUPPORTED)
 
-
-def test_verifier_no_evidence_is_unsupported():
-    verifier = ClaimVerifier()
+def test_verifier_no_evidence_is_unsupported(verifier):
     result = verifier.verify_claim("Some claim with no evidence available.", [])
     assert result.label == ClaimLabel.UNSUPPORTED
 
@@ -84,8 +103,7 @@ def test_classification_metrics_perfect_prediction():
     assert metrics["macro_f1"] == pytest.approx(2 / 3, abs=0.01)  # UNSUPPORTED class has 0 support
 
 
-def test_fever_style_evaluation_runs():
-    verifier = ClaimVerifier()
+def test_fever_style_evaluation_runs(verifier):
     examples = [
         {"claim": "Marie Curie was born in Warsaw.",
          "evidence": ["Marie Curie was born in Warsaw, Poland in 1867."],
@@ -96,7 +114,7 @@ def test_fever_style_evaluation_runs():
     assert metrics["n_examples"] == 1
 
 
-def test_full_pipeline_end_to_end():
+def test_full_pipeline_end_to_end(verifier):
     """The core requirement from the task: one response through the whole
     pipeline should actually execute and return a coherent result, not
     just raise NotImplementedError."""
@@ -104,9 +122,8 @@ def test_full_pipeline_end_to_end():
         "Marie Curie was born in Warsaw, Poland in 1867.",
         "Marie Curie won the Nobel Prize in Physics in 1903.",
     ]
-    index = EvidenceIndex(backend="bm25")
+    index = EvidenceIndex(backend="lexical")
     index.build_index(docs)
-    verifier = ClaimVerifier()
 
     response = "Marie Curie was born in Warsaw. She won a Nobel Prize."
     result = run_pipeline(response, index, verifier)
@@ -120,22 +137,20 @@ def test_full_pipeline_end_to_end():
     assert 0.0 <= result.response_summary["hallucination_rate"] <= 1.0
 
 
-def test_ablation_no_decomposition_treats_response_as_single_claim():
+def test_ablation_no_decomposition_treats_response_as_single_claim(verifier):
     docs = ["Marie Curie was born in Warsaw, Poland in 1867."]
-    index = EvidenceIndex(backend="bm25")
+    index = EvidenceIndex(backend="lexical")
     index.build_index(docs)
-    verifier = ClaimVerifier()
 
     response = "Marie Curie was born in Warsaw. She won a Nobel Prize."
     result = run_pipeline(response, index, verifier, decompose=False)
     assert result.response_summary["num_claims"] == 1
 
 
-def test_ablation_no_retrieval_gives_no_evidence():
+def test_ablation_no_retrieval_gives_no_evidence(verifier):
     docs = ["Marie Curie was born in Warsaw, Poland in 1867."]
-    index = EvidenceIndex(backend="bm25")
+    index = EvidenceIndex(backend="lexical")
     index.build_index(docs)
-    verifier = ClaimVerifier()
 
     result = run_pipeline("Marie Curie was born in Warsaw.", index, verifier, retrieve=False)
     for claim in result.claims:

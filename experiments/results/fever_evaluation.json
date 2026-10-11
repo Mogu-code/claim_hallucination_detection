@@ -1,0 +1,240 @@
+{
+  "seed": 42,
+  "dataset": "copenlu/fever_gold_evidence (validation)",
+  "split_sizes": {
+    "tune": 200,
+    "test": 500,
+    "total": 700
+  },
+  "backends": {
+    "verifier": "nli_model",
+    "retriever": "dense"
+  },
+  "tuned_thresholds": {
+    "entailment_threshold": 0.4,
+    "contradiction_threshold": 0.4,
+    "min_similarity_for_support": 0.2
+  },
+  "tune_metrics": {
+    "macro_f1": 0.8692,
+    "accuracy": 0.87
+  },
+  "test_evaluations": {
+    "A5_full_system": {
+      "accuracy": 0.834,
+      "macro_precision": 0.8386,
+      "macro_recall": 0.8344,
+      "macro_f1": 0.8359,
+      "per_class": {
+        "Supported": {
+          "precision": 0.8794,
+          "recall": 0.8105,
+          "f1": 0.8435
+        },
+        "Contradicted": {
+          "precision": 0.8385,
+          "recall": 0.8654,
+          "f1": 0.8517
+        },
+        "Unsupported": {
+          "precision": 0.798,
+          "recall": 0.8272,
+          "f1": 0.8123
+        }
+      },
+      "confusion_matrix": [
+        [
+          124,
+          5,
+          24
+        ],
+        [
+          5,
+          135,
+          16
+        ],
+        [
+          12,
+          21,
+          158
+        ]
+      ],
+      "labels": [
+        "Supported",
+        "Contradicted",
+        "Unsupported"
+      ],
+      "n_examples": 500
+    },
+    "A4_nli_only": {
+      "accuracy": 0.84,
+      "macro_precision": 0.8436,
+      "macro_recall": 0.8409,
+      "macro_f1": 0.8419,
+      "per_class": {
+        "Supported": {
+          "precision": 0.8819,
+          "recall": 0.8301,
+          "f1": 0.8552
+        },
+        "Contradicted": {
+          "precision": 0.8385,
+          "recall": 0.8654,
+          "f1": 0.8517
+        },
+        "Unsupported": {
+          "precision": 0.8103,
+          "recall": 0.8272,
+          "f1": 0.8187
+        }
+      },
+      "confusion_matrix": [
+        [
+          127,
+          5,
+          21
+        ],
+        [
+          5,
+          135,
+          16
+        ],
+        [
+          12,
+          21,
+          158
+        ]
+      ],
+      "labels": [
+        "Supported",
+        "Contradicted",
+        "Unsupported"
+      ],
+      "n_examples": 500
+    },
+    "A3_retrieval_similarity_only": {
+      "accuracy": 0.324,
+      "macro_precision": 0.2188,
+      "macro_recall": 0.3469,
+      "macro_f1": 0.2015,
+      "per_class": {
+        "Supported": {
+          "precision": 0.3231,
+          "recall": 0.9673,
+          "f1": 0.4845
+        },
+        "Contradicted": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Unsupported": {
+          "precision": 0.3333,
+          "recall": 0.0733,
+          "f1": 0.1202
+        }
+      },
+      "confusion_matrix": [
+        [
+          148,
+          0,
+          5
+        ],
+        [
+          133,
+          0,
+          23
+        ],
+        [
+          177,
+          0,
+          14
+        ]
+      ],
+      "labels": [
+        "Supported",
+        "Contradicted",
+        "Unsupported"
+      ],
+      "n_examples": 500
+    },
+    "A2_no_retrieval": {
+      "skipped": true,
+      "reason": "FEVER claims are isolated atomic assertions lacking intrinsic document context. Without evidence retrieval or gold evidence, claims cannot be resolved and are all trivially classified as Unsupported by definition, rendering A2 uninformative on this dataset."
+    },
+    "A1_no_decomposition": {
+      "synthetic": true,
+      "n_synthetic_responses": 50,
+      "a1_monolithic_accuracy": 0.86,
+      "a5_decomposed_accuracy": 0.94,
+      "accuracy_gain_from_decomposition": 0.08
+    }
+  },
+  "statistical_significance": {
+    "bootstrap_1000_seed_42": {
+      "A5_full_system": {
+        "accuracy_mean": 0.8349500000000001,
+        "accuracy_95_ci": [
+          0.804,
+          0.868
+        ],
+        "macro_f1_mean": 0.8364520342762973,
+        "macro_f1_95_ci": [
+          0.8044,
+          0.8691
+        ]
+      },
+      "A4_nli_only": {
+        "accuracy_mean": 0.8404320000000001,
+        "accuracy_95_ci": [
+          0.808,
+          0.872
+        ],
+        "macro_f1_mean": 0.8419492796407939,
+        "macro_f1_95_ci": [
+          0.8103,
+          0.8725
+        ]
+      },
+      "A3_retrieval_similarity_only": {
+        "accuracy_mean": 0.32417599999999996,
+        "accuracy_95_ci": [
+          0.282,
+          0.366
+        ],
+        "macro_f1_mean": 0.20097239960802604,
+        "macro_f1_95_ci": [
+          0.1751,
+          0.2262
+        ]
+      }
+    },
+    "mcnemar_a4_vs_a5": {
+      "discordant_pairs": {
+        "a4_correct_a5_wrong": 3,
+        "a5_correct_a4_wrong": 0
+      },
+      "p_value": 0.25,
+      "significant_at_0_05": false,
+      "conclusion": "No statistically significant difference between A4 and A5 (p = 0.2500)"
+    },
+    "mcnemar_a1_vs_a5_synthetic": {
+      "n_synthetic": 50,
+      "discordant_pairs": {
+        "a5_correct_a1_wrong": 4,
+        "a1_correct_a5_wrong": 0
+      },
+      "p_value": 0.125,
+      "a1_accuracy_95_ci": [
+        0.7595,
+        0.94
+      ],
+      "a5_accuracy_95_ci": [
+        0.86,
+        1.0
+      ],
+      "significant_at_0_05": false,
+      "conclusion": "A5 achieves +8.0% higher accuracy than A1 on synthetic multi-claim responses (p = 0.1250 on N=50)"
+    }
+  }
+}

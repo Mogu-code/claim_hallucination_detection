@@ -53,6 +53,15 @@ def load_split(split: str) -> pd.DataFrame:
     if split not in SPLITS:
         raise ValueError(f"Unknown split '{split}'. Choose from {SPLITS}.")
 
+    try:
+        from datasets import load_dataset
+        ds = load_dataset("pminervini/HaluEval", split, split="data")
+        df = ds.to_pandas()
+        print(f"[loaded via datasets] '{split}' split: {len(df)} records, columns: {list(df.columns)}")
+        return df
+    except Exception as e:
+        print(f"[datasets fallback] Could not load via datasets: {e}. Trying raw download...")
+
     path = download_split(split)
 
     records = []
