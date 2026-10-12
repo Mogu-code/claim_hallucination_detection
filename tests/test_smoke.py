@@ -155,3 +155,19 @@ def test_ablation_no_retrieval_gives_no_evidence(verifier):
     result = run_pipeline("Marie Curie was born in Warsaw.", index, verifier, retrieve=False)
     for claim in result.claims:
         assert claim["retrieved_evidence"] == []
+
+
+def test_scalar_verifier_subsumption(verifier):
+    # Tests the DA3 numerical reasoning enhancement
+    res = verifier.verify_claim(
+        "Yale University has five living billionaire alumni.",
+        ["Yale University has 20 living billionaire alumni as of 2023."],
+    )
+    assert res.label == ClaimLabel.SUPPORTED
+
+    res_contra = verifier.verify_claim(
+        "Marie Curie was born in 1905.",
+        ["Marie Curie was born in Warsaw, Poland in 1867."],
+    )
+    assert res_contra.label == ClaimLabel.CONTRADICTED
+

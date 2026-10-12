@@ -23,23 +23,27 @@ Supported / Contradicted / Unsupported → Hallucination Score
 ## Repository Structure
 
 ```
-├── docs/               DA1/DA2/DA3 reports, diagrams, contribution matrix
+├── docs/               DA1/DA2/DA3 manuscripts, patent drafts, contribution matrix
+│   ├── DA3_IEEE_Paper.tex       Ready-to-compile IEEEtran LaTeX conference paper
+│   ├── DA3_Research_Paper.md    Full 8-page equivalent research paper manuscript
+│   ├── DA3_Patent_Draft.md      Complete Patent Specification & Invention Disclosure
+│   └── contribution_matrix.md   DA1 / DA2 / DA3 effort distribution matrix
 ├── data/               Dataset loaders (FEVER, HaluEval)
 ├── experiments/        Threshold tuning, ablation benchmarks, error analysis
 │   ├── results/        Raw JSON evaluation results (seed, thresholds, metrics)
 │   ├── confusion_matrix_a5.png  High-resolution confusion matrix visualization
 │   └── error_analysis.md        Qualitative audit of 20 failure cases
-├── literature/         Literature comparison table (15+ papers)
-├── src/                Core pipeline modules (decomposition, retrieval, verifier)
-├── tests/              Smoke and unit test suite (14 passing tests)
+├── literature/         Literature comparison table (15 papers with exact metrics)
+├── src/                Core pipeline modules (decomposition, retrieval, verifier, scalar reasoner)
+├── tests/              Smoke and unit test suite (15 passing tests)
 └── requirements.txt
 ```
 
 ## Status
 
-- 🟢 DA1 — Literature survey, problem statement, architecture design (complete)
-- 🔵 **DA2** — Implementation, FEVER threshold tuning & ablation experiments (complete)
-- ⚪ DA3 — IEEE-format paper / patent draft
+- 🟢 **DA1** — Literature survey (15 papers), problem statement, architecture design (complete)
+- 🟢 **DA2** — Implementation, FEVER threshold tuning & ablation experiments, HaluEval benchmark (complete)
+- 🟢 **DA3** — IEEE-format research paper, patent draft, and adaptive scalar reasoning module (complete)
 
 ## Datasets
 

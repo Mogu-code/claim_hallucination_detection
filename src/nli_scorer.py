@@ -215,6 +215,23 @@ class ClaimVerifier:
         any_contradiction = use_nli and (best_contra[0]["contradiction"] >= self.config.contradiction_threshold)
         label = self._fuse(best_entail[0], best_entail[1], use_nli, use_similarity, any_contradiction)
 
+        # DA3 Enhancement: Adaptive Scalar / Numerical Reasoning Check
+        if use_nli and label != ClaimLabel.SUPPORTED:
+            from src.scalar_verifier import check_scalar_subsumption
+            for item in evidence:
+                passage = item.get("text", "") if isinstance(item, dict) else str(item)
+                scalar_res = check_scalar_subsumption(claim, passage)
+                if scalar_res:
+                    s_type, s_conf = scalar_res
+                    if s_type == "entailment" and s_conf >= self.config.entailment_threshold:
+                        label = ClaimLabel.SUPPORTED
+                        best_entail = ({"entailment": s_conf, "contradiction": 0.0, "neutral": 1.0 - s_conf}, best_entail[1], passage)
+                        break
+                    elif s_type == "contradiction" and s_conf >= self.config.contradiction_threshold:
+                        label = ClaimLabel.CONTRADICTED
+                        best_contra = ({"entailment": 0.0, "contradiction": s_conf, "neutral": 1.0 - s_conf}, best_contra[1], passage)
+                        break
+
         if label == ClaimLabel.CONTRADICTED:
             nli, sim, passage = best_contra
         elif label == ClaimLabel.SUPPORTED:
