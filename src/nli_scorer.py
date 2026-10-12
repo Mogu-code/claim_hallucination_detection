@@ -107,9 +107,17 @@ class ClaimVerifier:
             model = self._nli_pipeline.model
             device = model.device
 
-            all_scores = []
-            for i in range(0, len(pairs), batch_size):
-                batch = pairs[i : i + batch_size]
+            # Sort indices by sequence character length to minimize dynamic padding overhead per batch
+            sorted_indices = sorted(
+                range(len(pairs)),
+                key=lambda i: len(pairs[i].get("text", "")) + len(pairs[i].get("text_pair", ""))
+            )
+            sorted_pairs = [pairs[i] for i in sorted_indices]
+
+            all_scores = [None] * len(pairs)
+            for i in range(0, len(sorted_pairs), batch_size):
+                batch = sorted_pairs[i : i + batch_size]
+                orig_indices = sorted_indices[i : i + batch_size]
                 texts = [p["text"] for p in batch]
                 text_pairs = [p["text_pair"] for p in batch]
                 with torch.inference_mode():
@@ -117,13 +125,19 @@ class ClaimVerifier:
                     logits = model(**enc).logits
                     probs = torch.softmax(logits, dim=-1).cpu().numpy()
 
-                for row in probs:
+                for idx_in_b, row in enumerate(probs):
+                    orig_i = orig_indices[idx_in_b]
                     mapped = {"entailment": 0.0, "contradiction": 0.0, "neutral": 0.0}
                     for idx_label, prob_val in enumerate(row):
                         label_str = self.id2label[idx_label]
                         norm_label = self.label_map.get(label_str, "neutral")
                         mapped[norm_label] = float(prob_val)
-                    all_scores.append(mapped)
+                    all_scores[orig_i] = mapped
+
+                if len(pairs) > 32:
+                    done = min(i + batch_size, len(sorted_pairs))
+                    pct = (done / len(sorted_pairs)) * 100
+                    print(f"  [NLI Progress] {done}/{len(sorted_pairs)} pairs evaluated ({pct:.1f}%)...", flush=True)
             return all_scores
         else:
             return [self._lexical_fallback_scores(p["text_pair"], p["text"]) for p in pairs]

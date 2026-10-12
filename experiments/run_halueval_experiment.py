@@ -168,23 +168,12 @@ def run_halueval_experiment(seed: int = 42, n_samples: int = 500, top_k: int = 3
     hit_rate_at_k = total_decomposed_hits / total_decomposed_queries if total_decomposed_queries > 0 else 0.0
     print(f"\nSource-Document Hit Rate@{top_k}: {hit_rate_at_k:.4f} ({total_decomposed_hits}/{total_decomposed_queries})", flush=True)
 
-    # 5. Batched NLI Scoring with dynamic padding & batch logging
+    # 5. Batched NLI Scoring with dynamic padding & length sorting
     unique_pairs_list = list(all_pairs_set.values())
-    print(f"Computing batched NLI scores for {len(unique_pairs_list)} unique pairs (batch_size=16)...", flush=True)
+    print(f"Computing batched NLI scores for {len(unique_pairs_list)} unique pairs (batch_size=32)...", flush=True)
 
-    nli_batch_size = 16
-    pair_to_nli = {}
-    total_unique = len(unique_pairs_list)
-
-    for i in range(0, total_unique, nli_batch_size):
-        sub_batch = unique_pairs_list[i : i + nli_batch_size]
-        sub_scores = verifier.batch_nli_scores(sub_batch, batch_size=nli_batch_size)
-        for p, s in zip(sub_batch, sub_scores):
-            pair_to_nli[(p["text"], p["text_pair"])] = s
-        
-        done = min(i + nli_batch_size, total_unique)
-        pct = (done / total_unique) * 100
-        print(f"  [NLI Progress] {done}/{total_unique} pairs evaluated ({pct:.1f}%)...", flush=True)
+    scores = verifier.batch_nli_scores(unique_pairs_list, batch_size=32)
+    pair_to_nli = {(p["text"], p["text_pair"]): s for p, s in zip(unique_pairs_list, scores)}
 
     print("Batch NLI scoring complete. Evaluating ablations...", flush=True)
 

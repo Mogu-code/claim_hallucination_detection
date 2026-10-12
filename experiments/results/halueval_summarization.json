@@ -1,0 +1,64 @@
+{
+  "dataset": "HaluEval (summarization split)",
+  "seed": 42,
+  "n_examples": 10,
+  "backends": {
+    "verifier": "nli_model",
+    "retriever": "dense"
+  },
+  "thresholds_used": {
+    "entailment_threshold": 0.4,
+    "contradiction_threshold": 0.4,
+    "min_similarity_for_support": 0.2,
+    "origin": "Tuned on FEVER dev (no re-tuning)"
+  },
+  "corpus_stats": {
+    "total_passages_pooled": 149,
+    "top_k": 1,
+    "source_document_hit_rate_at_k": 0.9451,
+    "source_document_hits": 86,
+    "total_queries": 91
+  },
+  "ablations": {
+    "A5_full_system": {
+      "pairwise_accuracy_strict": 0.7,
+      "pairwise_accuracy_with_ties_half": 0.8,
+      "strictly_greater": 7,
+      "strictly_less": 1,
+      "ties": 2,
+      "auroc": 0.77,
+      "mean_right_hallucination_rate": 0.4678,
+      "mean_hallucinated_hallucination_rate": 0.7381
+    },
+    "A4_nli_only": {
+      "pairwise_accuracy_strict": 0.7,
+      "pairwise_accuracy_with_ties_half": 0.8,
+      "strictly_greater": 7,
+      "strictly_less": 1,
+      "ties": 2,
+      "auroc": 0.77,
+      "mean_right_hallucination_rate": 0.4678,
+      "mean_hallucinated_hallucination_rate": 0.7381
+    },
+    "A3_retrieval_similarity_only": {
+      "pairwise_accuracy_strict": 0.0,
+      "pairwise_accuracy_with_ties_half": 0.5,
+      "strictly_greater": 0,
+      "strictly_less": 0,
+      "ties": 10,
+      "auroc": 0.5,
+      "mean_right_hallucination_rate": 0.0,
+      "mean_hallucinated_hallucination_rate": 0.0
+    },
+    "A1_no_decomposition": {
+      "pairwise_accuracy_strict": 0.2,
+      "pairwise_accuracy_with_ties_half": 0.55,
+      "strictly_greater": 2,
+      "strictly_less": 1,
+      "ties": 7,
+      "auroc": 0.55,
+      "mean_right_hallucination_rate": 0.8,
+      "mean_hallucinated_hallucination_rate": 0.9
+    }
+  }
+}

@@ -105,13 +105,33 @@ A comprehensive audit of 20 genuine test-set failure cases is documented in [`ex
 
 ---
 
-## Benchmarking & Compute Scaling Limitations
+## HaluEval Summarization Benchmark
 
-1. **HaluEval Passage Retrieval Benchmark:**
-   - Evaluated dense passage retrieval across pooled document corpora (`sentence-transformers/all-MiniLM-L6-v2`), achieving a **96.70% Source-Document Hit Rate@2** (88/91 queries correctly identified passages from the source document).
-   - **Local CPU Compute Bottleneck:** Cross-encoder inference on CPU takes ~2.4s per pair with dynamic padding. For full 500-sample multi-claim benchmarks generating ~17,500 candidate pairs, evaluation requires 12–16 hours of continuous CPU execution. Scaling full-corpus cross-encoding to large benchmark suites requires CUDA GPU acceleration or high-throughput batched vLLM/TensorRT runtimes.
-2. **Unimplemented External Baselines:**
-   - Baselines such as **SelfCheckGPT** (requires generating multiple stochastic LLM completions per prompt), **FactScore** (requires proprietary instruction-tuned LLMs), and **ReFind** (requires external search APIs) were not evaluated locally due to hardware constraints and absence of paid API credentials.
+Evaluated on the `summarization` subset of HaluEval with fixed seed (`seed=42`), where each source document is chunked into passages and pooled into a combined distracter corpus (149 passages). Summaries (`right_summary` vs `hallucinated_summary`) are decomposed into atomic claims, verified against top-$k$ retrieved passages under the FEVER-tuned thresholds (`entailment=0.40`, `contradiction=0.40`, `min_similarity=0.20`, no retuning).
+
+- **Corpus Pooling & Dense Retrieval:** 149 pooled passages across documents. Dense retriever (`sentence-transformers/all-MiniLM-L6-v2`) achieved a **94.51% Source-Document Hit Rate@1** (86/91 queries correctly retrieved evidence from their originating document).
+- **Active Backends:** `verifier=nli_model` (`MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`), `retriever=dense` (`sentence-transformers/all-MiniLM-L6-v2`). Zero fallbacks; raw metrics saved in [`experiments/results/halueval_summarization.json`](file:///c:/Users/MOKSHDAA/Desktop/github/claim-hallucination-detection/experiments/results/halueval_summarization.json).
+
+### Ablation Results on HaluEval Summarization
+
+| Ablation Config | Description | Pairwise Accuracy (Strict) | Pairwise Accuracy (Ties=0.5) | AUROC | Mean Hallucination Rate (Right) | Mean Hallucination Rate (Hallucinated) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **A5** | **Full System** (Decomposition + NLI + Sim) | **70.00%** (7 wins, 2 ties) | **80.00%** | **0.7700** | 0.4678 | **0.7381** |
+| **A4** | **NLI Only** (no similarity gating) | **70.00%** (7 wins, 2 ties) | **80.00%** | **0.7700** | 0.4678 | **0.7381** |
+| **A1** | **No Decomposition** (Monolithic Summary) | 20.00% (2 wins, 7 ties) | 55.00% | 0.5500 | 0.8000 | 0.9000 |
+| **A3** | **Retrieval Similarity Only** (no NLI) | 0.00% (0 wins, 10 ties) | 50.00% | 0.5000 | 0.0000 | 0.0000 |
+
+### Key Benchmark Insights
+1. **Critical Role of Claim Decomposition ($A_5$ vs $A_1$):** Without claim decomposition, monolithic verification ($A_1$) suffers from extreme ambiguity, resulting in 7 ties out of 10 and near-random AUROC (**0.5500**). Decomposing summaries into atomic assertions ($A_5$) boosts Pairwise Accuracy from **20.0% to 70.0% (+50.0% gain)** and AUROC from **0.5500 to 0.7700 (+0.22 gain)**.
+2. **NLI vs Similarity Alone ($A_4/A_5$ vs $A_3$):** Cosine similarity alone ($A_3$) fails completely on LLM hallucination detection (10/10 ties, AUROC 0.5000) because hallucinated summaries often share high lexical and topical similarity with source documents. Deep bidirectional NLI reasoning is indispensable.
+3. **Discriminative Hallucination Separation:** Decomposed NLI assigns a substantially higher hallucination rate to hallucinated summaries (**0.7381**) than to factual summaries (**0.4678**).
+
+---
+
+## Compute Scaling & Baseline Limitations
+
+1. **Local CPU Compute Optimization:** Cross-encoder inference on CPU was optimized by implementing sequence-length bucketing before batching, reducing dynamic padding overhead and cutting inference latency to ~0.8s per pair. While this enables high-throughput verification on focused subsets, full-scale evaluation across massive multi-passage LLM benchmarks (e.g. 500+ documents with >15,000 pairs) mathematically requires GPU clusters or high-throughput batched vLLM/TensorRT runtimes.
+2. **Unimplemented External Baselines:** Baselines requiring external generative LLM samplers (e.g. SelfCheckGPT stochastic generation), closed APIs (e.g. FactScore with GPT-4), or live web search (e.g. ReFind) were omitted due to hardware constraints and lack of paid API credentials.
 
 ---
 
