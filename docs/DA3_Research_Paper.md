@@ -1,6 +1,6 @@
 # Evidence-Aware Claim-Level Hallucination Detection in Large Language Model Generations
 
-**Authors:** Riya, Mokshdaa, Anirudh  
+**Authors:** Mokshdaa, Riya, Anirudh  
 **Institution:** School of Computer Science and Engineering, Vellore Institute of Technology (VIT), Tamil Nadu, India  
 **Course:** BCSE306L — Natural Language Processing  
 **Faculty:** Dr. Vijayaprabakaran K  

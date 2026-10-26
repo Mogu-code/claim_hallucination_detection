@@ -3,8 +3,8 @@
 **Course:** BCSE306L — Natural Language Processing  
 **Faculty:** Dr. Vijayaprabakaran K  
 **Team:** 
-1. RIYA
-2. MOKSHDAA
+1. MOKSHDAA
+2. RIYA
 3. ANIRUDH  
 **Deliverables:** DA1 · DA2 · DA3
 

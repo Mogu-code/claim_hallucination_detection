@@ -3,8 +3,8 @@
 **Application Type:** Complete Patent Specification (Provisional/Non-Provisional Format)  
 **Title of the Invention:** *System and Method for Evidence-Aware Atomic Claim-Level Hallucination Detection in Large Language Model Generations*  
 **Inventors:**  
-1. Riya (School of Computer Science and Engineering, Vellore Institute of Technology)  
-2. Mokshdaa (School of Computer Science and Engineering, Vellore Institute of Technology)  
+1. Mokshdaa (School of Computer Science and Engineering, Vellore Institute of Technology)  
+2. Riya (School of Computer Science and Engineering, Vellore Institute of Technology)  
 3. Anirudh (School of Computer Science and Engineering, Vellore Institute of Technology)  
 **Faculty / Mentor:** Dr. Vijayaprabakaran K (Department of Computer Science and Engineering, VIT)  
 **Course & Deliverable:** BCSE306L — Natural Language Processing | DA3  
