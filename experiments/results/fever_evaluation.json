@@ -1,6 +1,7 @@
 {
   "seed": 42,
   "dataset": "copenlu/fever_gold_evidence (validation)",
+  "evidence_mode": "provided (copenlu gold evidence sentences)",
   "split_sizes": {
     "tune": 200,
     "test": 500,
@@ -11,51 +12,51 @@
     "retriever": "dense"
   },
   "tuned_thresholds": {
-    "entailment_threshold": 0.4,
-    "contradiction_threshold": 0.4,
-    "min_similarity_for_support": 0.2
+    "entailment_threshold": 0.55,
+    "contradiction_threshold": 0.3,
+    "min_similarity_for_support": 0.05
   },
   "tune_metrics": {
-    "macro_f1": 0.8692,
-    "accuracy": 0.87
+    "macro_f1": 0.8889,
+    "accuracy": 0.89
   },
   "test_evaluations": {
     "A5_full_system": {
       "accuracy": 0.834,
-      "macro_precision": 0.8386,
-      "macro_recall": 0.8344,
-      "macro_f1": 0.8359,
+      "macro_precision": 0.841,
+      "macro_recall": 0.8343,
+      "macro_f1": 0.8361,
       "per_class": {
         "Supported": {
-          "precision": 0.8794,
-          "recall": 0.8105,
-          "f1": 0.8435
+          "precision": 0.9037,
+          "recall": 0.7974,
+          "f1": 0.8472
         },
         "Contradicted": {
-          "precision": 0.8385,
-          "recall": 0.8654,
-          "f1": 0.8517
+          "precision": 0.8253,
+          "recall": 0.8782,
+          "f1": 0.8509
         },
         "Unsupported": {
-          "precision": 0.798,
+          "precision": 0.794,
           "recall": 0.8272,
-          "f1": 0.8123
+          "f1": 0.8103
         }
       },
       "confusion_matrix": [
         [
-          124,
+          122,
           5,
-          24
+          26
         ],
         [
-          5,
-          135,
-          16
+          4,
+          137,
+          15
         ],
         [
-          12,
-          21,
+          9,
+          24,
           158
         ]
       ],
@@ -67,41 +68,41 @@
       "n_examples": 500
     },
     "A4_nli_only": {
-      "accuracy": 0.84,
-      "macro_precision": 0.8436,
-      "macro_recall": 0.8409,
-      "macro_f1": 0.8419,
+      "accuracy": 0.834,
+      "macro_precision": 0.841,
+      "macro_recall": 0.8343,
+      "macro_f1": 0.8361,
       "per_class": {
         "Supported": {
-          "precision": 0.8819,
-          "recall": 0.8301,
-          "f1": 0.8552
+          "precision": 0.9037,
+          "recall": 0.7974,
+          "f1": 0.8472
         },
         "Contradicted": {
-          "precision": 0.8385,
-          "recall": 0.8654,
-          "f1": 0.8517
+          "precision": 0.8253,
+          "recall": 0.8782,
+          "f1": 0.8509
         },
         "Unsupported": {
-          "precision": 0.8103,
+          "precision": 0.794,
           "recall": 0.8272,
-          "f1": 0.8187
+          "f1": 0.8103
         }
       },
       "confusion_matrix": [
         [
-          127,
+          122,
           5,
-          21
+          26
         ],
         [
-          5,
-          135,
-          16
+          4,
+          137,
+          15
         ],
         [
-          12,
-          21,
+          9,
+          24,
           158
         ]
       ],
@@ -113,15 +114,15 @@
       "n_examples": 500
     },
     "A3_retrieval_similarity_only": {
-      "accuracy": 0.324,
-      "macro_precision": 0.2188,
-      "macro_recall": 0.3469,
-      "macro_f1": 0.2015,
+      "accuracy": 0.306,
+      "macro_precision": 0.1022,
+      "macro_recall": 0.3333,
+      "macro_f1": 0.1564,
       "per_class": {
         "Supported": {
-          "precision": 0.3231,
-          "recall": 0.9673,
-          "f1": 0.4845
+          "precision": 0.3066,
+          "recall": 1.0,
+          "f1": 0.4693
         },
         "Contradicted": {
           "precision": 0.0,
@@ -129,26 +130,26 @@
           "f1": 0.0
         },
         "Unsupported": {
-          "precision": 0.3333,
-          "recall": 0.0733,
-          "f1": 0.1202
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
         }
       },
       "confusion_matrix": [
         [
-          148,
+          153,
           0,
-          5
+          0
         ],
         [
-          133,
+          155,
           0,
-          23
+          1
         ],
         [
-          177,
+          191,
           0,
-          14
+          0
         ]
       ],
       "labels": [
@@ -168,73 +169,190 @@
       "a1_monolithic_accuracy": 0.86,
       "a5_decomposed_accuracy": 0.94,
       "accuracy_gain_from_decomposition": 0.08
+    },
+    "baseline_majority_class": {
+      "accuracy": 0.382,
+      "macro_precision": 0.1273,
+      "macro_recall": 0.3333,
+      "macro_f1": 0.1843,
+      "per_class": {
+        "Supported": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Contradicted": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Unsupported": {
+          "precision": 0.382,
+          "recall": 1.0,
+          "f1": 0.5528
+        }
+      },
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          153
+        ],
+        [
+          0,
+          0,
+          156
+        ],
+        [
+          0,
+          0,
+          191
+        ]
+      ],
+      "labels": [
+        "Supported",
+        "Contradicted",
+        "Unsupported"
+      ],
+      "majority_class": "Unsupported",
+      "n_examples": 500
+    },
+    "baseline_uniform_random": {
+      "accuracy": 0.3,
+      "macro_precision": 0.2987,
+      "macro_recall": 0.3021,
+      "macro_f1": 0.2989,
+      "per_class": {
+        "Supported": {
+          "precision": 0.3065,
+          "recall": 0.3725,
+          "f1": 0.3363
+        },
+        "Contradicted": {
+          "precision": 0.2797,
+          "recall": 0.2564,
+          "f1": 0.2676
+        },
+        "Unsupported": {
+          "precision": 0.3099,
+          "recall": 0.2775,
+          "f1": 0.2928
+        }
+      },
+      "confusion_matrix": [
+        [
+          57,
+          38,
+          58
+        ],
+        [
+          56,
+          40,
+          60
+        ],
+        [
+          73,
+          65,
+          53
+        ]
+      ],
+      "labels": [
+        "Supported",
+        "Contradicted",
+        "Unsupported"
+      ],
+      "n_examples": 500
     }
   },
   "statistical_significance": {
     "bootstrap_1000_seed_42": {
       "A5_full_system": {
-        "accuracy_mean": 0.8349500000000001,
+        "accuracy_mean": 0.833948,
         "accuracy_95_ci": [
-          0.804,
-          0.868
+          0.8,
+          0.866
         ],
-        "macro_f1_mean": 0.8364520342762973,
+        "macro_f1_mean": 0.8356201757908199,
         "macro_f1_95_ci": [
-          0.8044,
-          0.8691
+          0.8015,
+          0.8678
         ]
       },
       "A4_nli_only": {
-        "accuracy_mean": 0.8404320000000001,
+        "accuracy_mean": 0.832904,
         "accuracy_95_ci": [
-          0.808,
-          0.872
+          0.8,
+          0.864
         ],
-        "macro_f1_mean": 0.8419492796407939,
+        "macro_f1_mean": 0.8346547454151657,
         "macro_f1_95_ci": [
-          0.8103,
-          0.8725
+          0.8027,
+          0.8668
         ]
       },
       "A3_retrieval_similarity_only": {
-        "accuracy_mean": 0.32417599999999996,
+        "accuracy_mean": 0.30602999999999997,
         "accuracy_95_ci": [
-          0.282,
-          0.366
+          0.264,
+          0.346
         ],
-        "macro_f1_mean": 0.20097239960802604,
+        "macro_f1_mean": 0.1563254578536811,
         "macro_f1_95_ci": [
-          0.1751,
-          0.2262
+          0.1397,
+          0.1714
+        ]
+      },
+      "baseline_majority_class": {
+        "accuracy_mean": 0.38199600000000006,
+        "accuracy_95_ci": [
+          0.34,
+          0.424
+        ],
+        "macro_f1_mean": 0.18415100615895927,
+        "macro_f1_95_ci": [
+          0.1692,
+          0.1985
+        ]
+      },
+      "baseline_uniform_random": {
+        "accuracy_mean": 0.3009,
+        "accuracy_95_ci": [
+          0.262,
+          0.342
+        ],
+        "macro_f1_mean": 0.2991243249962867,
+        "macro_f1_95_ci": [
+          0.2597,
+          0.3382
         ]
       }
     },
     "mcnemar_a4_vs_a5": {
       "discordant_pairs": {
-        "a4_correct_a5_wrong": 3,
+        "a4_correct_a5_wrong": 0,
         "a5_correct_a4_wrong": 0
       },
-      "p_value": 0.25,
+      "p_value": 1.0,
       "significant_at_0_05": false,
-      "conclusion": "No statistically significant difference between A4 and A5 (p = 0.2500)"
+      "conclusion": "No statistically significant difference between A4 and A5 (p = 1.0000, b=0, c=0)"
     },
     "mcnemar_a1_vs_a5_synthetic": {
       "n_synthetic": 50,
       "discordant_pairs": {
-        "a5_correct_a1_wrong": 4,
-        "a1_correct_a5_wrong": 0
+        "a5_correct_a1_wrong": 5,
+        "a1_correct_a5_wrong": 1
       },
-      "p_value": 0.125,
+      "p_value": 0.2188,
       "a1_accuracy_95_ci": [
-        0.7595,
-        0.94
+        0.76,
+        0.96
       ],
       "a5_accuracy_95_ci": [
         0.86,
         1.0
       ],
       "significant_at_0_05": false,
-      "conclusion": "A5 achieves +8.0% higher accuracy than A1 on synthetic multi-claim responses (p = 0.1250 on N=50)"
+      "conclusion": "A5 vs A1 on synthetic multi-claim responses: p = 0.2188 (b=5, c=1, N=50)"
     }
   }
 }

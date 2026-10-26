@@ -5,6 +5,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
+\graphicspath{{./}{../}{docs/}{experiments/}{../experiments/}}
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{booktabs}
@@ -29,7 +30,7 @@ Email: \IEEEauthorrefmark{1}riya@vitstudent.ac.in,
 \maketitle
 
 \begin{abstract}
-Large Language Models (LLMs) frequently generate plausible yet factually incorrect assertions, known as hallucinations. Traditional detection methods analyze entire responses monolithically or rely on stochastic self-consistency, obscuring localized inaccuracies and failing when models generate repetitive hallucinations. In this paper, we propose an end-to-end, evidence-aware hallucination detection architecture that decomposes LLM outputs into atomic factual assertions, executes dense passage retrieval across pooled evidence corpora, and verifies assertions via bidirectional cross-encoder Natural Language Inference (NLI) coupled with dynamic threshold fusion. Evaluated on the FEVER benchmark under disjoint validation tuning ($N=200$) and testing ($N=500$), our system achieves 84.00\% accuracy and 0.8419 macro-F1 (95\% CI: [0.8103, 0.8725]). Statistical hypothesis testing via paired two-tailed McNemar tests reveals no significant difference between pure cross-encoder NLI and cosine similarity fusion ($p=0.2500$), indicating that similarity gating falsely penalizes valid lexical paraphrases. On the multi-document HaluEval summarization benchmark, dense retrieval attains a 94.51\% Source-Document Hit Rate@1 across distractor corpora, while atomic decomposition yields an empirical accuracy gain of +50.0\% (70.0\% vs. 20.0\%) and an AUROC improvement of +0.22 (0.7700 vs. 0.5500) over monolithic paragraph verification. Finally, we audit 20 representative failure cases, categorize five root-cause taxonomies, and deploy an adaptive scalar reasoning module that successfully resolves numerical subsumption errors.
+Large Language Models (LLMs) frequently generate plausible yet factually incorrect assertions, known as hallucinations. Traditional detection methods analyze entire responses monolithically or rely on stochastic self-consistency, obscuring localized inaccuracies and failing when models generate repetitive hallucinations. In this paper, we propose an end-to-end, evidence-aware hallucination detection architecture that decomposes LLM outputs into atomic factual assertions, executes dense passage retrieval across pooled evidence corpora, and verifies assertions via bidirectional cross-encoder Natural Language Inference (NLI) coupled with dynamic threshold fusion. Evaluated on the FEVER benchmark under disjoint validation tuning ($N=200$) and testing ($N=500$), our system achieves 83.40\% accuracy and 0.8361 macro-F1 (95\% CI: [0.8015, 0.8678]). Statistical hypothesis testing via paired two-tailed McNemar tests reveals no significant difference between pure cross-encoder NLI and cosine similarity fusion ($p=1.0000$), indicating that similarity gating falsely penalizes valid lexical paraphrases. On the multi-document HaluEval summarization benchmark, dense retrieval attains high source document recall across distractor corpora, while atomic decomposition yields an empirical accuracy gain from 20.0\% to 70.0\% (strict pairwise) and an AUROC improvement of +0.22 (0.7700 vs. 0.5500) over monolithic paragraph verification. Finally, we audit 20 representative failure cases, categorize five root-cause taxonomies, and deploy an adaptive scalar reasoning module that successfully resolves numerical subsumption errors.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -51,15 +52,16 @@ To resolve these challenges, we present an interpretable, evidence-aware claim-l
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{experiments/confusion_matrix_a5.png}
-\caption{Normalized Confusion Matrix of the Full Verification Pipeline ($A_5$) on the Disjoint FEVER Test Split ($N=500$, $seed=42$).}
+\includegraphics[width=\columnwidth]{architecture.png}
+\caption{System architecture of the evidence-aware claim-level hallucination detection pipeline, showing atomic claim decomposition, dense passage retrieval, cross-encoder NLI scoring, and threshold fusion with adaptive scalar reasoning.}
 \label{fig:arch}
+\label{fig:architecture}
 \end{figure}
 
 The principal contributions of this work are as follows:
 \begin{itemize}
     \item We design an end-to-end open-source pipeline that unifies rule-guarded claim extraction, dense passage retrieval, and cross-encoder verification without requiring proprietary API dependencies.
-    \item We conduct rigorous ablation studies ($A_1$ to $A_5$) on FEVER and HaluEval, reporting Bootstrap 95\% Confidence Intervals and exact paired McNemar tests. We prove that semantic similarity gating does not significantly outperform pure NLI ($p=0.2500$), whereas claim decomposition yields a +50.0\% gain in pairwise accuracy and a +0.22 increase in AUROC.
+    \item We conduct rigorous ablation studies ($A_1$ to $A_5$) on FEVER and HaluEval, reporting Bootstrap 95\% Confidence Intervals and exact paired McNemar tests. We show that semantic similarity gating yields identical predictions to pure NLI on FEVER ($p=1.0000$), whereas claim decomposition substantially improves pairwise accuracy (from 20.0\% to 70.0\%) and AUROC (+0.22).
     \item We execute an in-depth audit of 20 failure cases across five linguistic taxonomies and propose an adaptive scalar verifier that resolves numerical reasoning and scalar bound subsumption failures.
 \end{itemize}
 
@@ -100,7 +102,7 @@ Each candidate pair $(p_j, c_i)$ is passed to a cross-encoder NLI model (\texttt
 [P(\text{ent}), P(\text{contra}), P(\text{neu})] = \text{softmax}(\mathbf{z})
 \end{equation}
 
-Standard NLI models default to $\arg\max$, which imposes symmetric $0.5$ boundaries unsuited for high-stakes verification. We calibrate three disjoint thresholds: entailment threshold $\tau_{\text{ent}} = 0.40$, contradiction threshold $\tau_{\text{contra}} = 0.40$, and minimum similarity bound $\tau_{\text{sim}} = 0.20$.
+Standard NLI models default to $\arg\max$, which imposes symmetric $0.5$ boundaries unsuited for high-stakes verification. We calibrate three disjoint thresholds using an extended grid search: entailment threshold $\tau_{\text{ent}} = 0.55$, contradiction threshold $\tau_{\text{contra}} = 0.30$, and minimum similarity bound $\tau_{\text{sim}} = 0.05$.
 The label decision rule is formalized as:
 \begin{equation}
 \mathcal{L}(c_i) = 
@@ -122,7 +124,7 @@ Conversely, if exclusive temporal assertions mismatch ($|\text{Year}_{\text{ev}}
 
 \subsection{Datasets and Disjoint Calibration}
 \begin{itemize}
-    \item \textbf{FEVER Dev Benchmark \cite{thorne2018fever}:} Evaluated on \texttt{copenlu/fever\_gold\_evidence} validation set using disjoint partitions ($seed=42$): a tuning split ($N=200$) used exclusively for grid-search threshold tuning, and a test split ($N=500$) evaluated exactly once.
+    \item \textbf{FEVER Dev Benchmark \cite{thorne2018fever}:} Evaluated on \texttt{copenlu/fever\_gold\_evidence} validation set using disjoint partitions ($seed=42$): a tuning split ($N=200$) used exclusively for grid-search threshold tuning, and a test split ($N=500$) evaluated exactly once. Evidence is provided directly via gold sentence candidates rather than retrieved globally.
     \item \textbf{HaluEval Summarization Benchmark \cite{li2023halueval}:} Evaluates full-paragraph right vs. hallucinated summaries. Documents are chunked into 3-sentence passages with 2-sentence stride and pooled into a single shared distractor corpus (149 passages).
 \end{itemize}
 
@@ -143,25 +145,34 @@ System performance is evaluated via Accuracy, Macro-Precision, Macro-Recall, and
 \toprule
 \textbf{Config} & \textbf{Description} & \textbf{Accuracy [95\% CI]} & \textbf{Macro P} & \textbf{Macro R} & \textbf{Macro F1 [95\% CI]} & \textbf{Supp F1} & \textbf{Contra F1} & \textbf{Unsupp F1} \\
 \midrule
-\textbf{A4} & \textbf{NLI Only} (no similarity gating) & \textbf{84.00\%} [80.80, 87.20] & \textbf{0.8436} & \textbf{0.8409} & \textbf{0.8419} [0.8103, 0.8725] & \textbf{0.8552} & \textbf{0.8517} & \textbf{0.8187} \\
-\textbf{A5} & \textbf{Full System} (NLI + Similarity Fusion) & 83.40\% [80.40, 86.80] & 0.8386 & 0.8344 & 0.8359 [0.8044, 0.8691] & 0.8435 & \textbf{0.8517} & 0.8123 \\
-\textbf{A3} & \textbf{Retrieval Similarity Only} (no NLI) & 32.40\% [28.20, 36.60] & 0.2188 & 0.3469 & 0.2015 [0.1751, 0.2262] & 0.4845 & 0.0000 & 0.1202 \\
+\textbf{A5} & \textbf{Full System} (NLI + Similarity Fusion) & 83.40\% [80.00, 86.60] & 0.8410 & 0.8343 & 0.8361 [0.8015, 0.8678] & 0.8472 & 0.8509 & 0.8103 \\
+\textbf{A4} & \textbf{NLI Only} (no similarity gating) & 83.40\% [80.00, 86.40] & 0.8410 & 0.8343 & 0.8361 [0.8027, 0.8668] & 0.8472 & 0.8509 & 0.8103 \\
+\textbf{A3} & \textbf{Retrieval Similarity Only} (no NLI) & 30.60\% [26.40, 34.60] & 0.1022 & 0.3333 & 0.1564 [0.1397, 0.1714] & 0.4693 & 0.0000 & 0.0000 \\
+\textbf{Base-Maj} & \textbf{Majority Class (Unsupported)} & 38.20\% [34.00, 42.40] & 0.1273 & 0.3333 & 0.1843 [0.1692, 0.1985] & 0.0000 & 0.0000 & 0.5528 \\
+\textbf{Base-Rand} & \textbf{Uniform Random Baseline} & 30.00\% [26.20, 34.20] & 0.2987 & 0.3021 & 0.2989 [0.2597, 0.3382] & 0.3363 & 0.2676 & 0.2928 \\
 \textbf{A2} & \textbf{No Retrieval} & \textit{Skipped} & --- & --- & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{confusion_matrix_a5.png}
+\caption{Confusion matrix (counts) of the Full Verification Pipeline ($A_5$) on the Disjoint FEVER Test Split ($N=500$, $seed=42$).}
+\label{fig:confusion_matrix}
+\end{figure}
+
 \subsection{FEVER Test Split Evaluation}
 Table~\ref{tab:fever_ablations} presents the comparative evaluation across ablation configurations.
 \begin{itemize}
-    \item \textbf{A4 (NLI Only):} Achieves 84.00\% accuracy and 0.8419 Macro-F1.
-    \item \textbf{A5 (Full Fusion System):} Yields 83.40\% accuracy and 0.8359 Macro-F1.
-    \item \textbf{McNemar Significance Test ($A_4$ vs. $A_5$):} Discordant pair counts are $b = 3$ ($A_4$ correct, $A_5$ wrong) and $c = 0$. The exact two-tailed McNemar test yields $\mathbf{p = 0.2500}$ ($p > 0.05$). We fail to reject the null hypothesis: full fusion does \textit{not} provide a statistically significant advantage over pure NLI on FEVER. Cosine similarity gating falsely penalizes valid paraphrases whose surface vectors diverge slightly from retrieved evidence.
-    \item \textbf{Failure of Semantic Similarity Alone ($A_3$):} Setting similarity alone yields 32.40\% accuracy and 0.2015 Macro-F1. Crucially, $A_3$ achieves a Contradiction F1 of exactly \textbf{0.0000}, demonstrating that semantic embeddings cannot detect negation or refutation without cross-attention NLI.
+    \item \textbf{A4 (NLI Only):} Achieves 83.40\% accuracy and 0.8361 Macro-F1.
+    \item \textbf{A5 (Full Fusion System):} Yields 83.40\% accuracy and 0.8361 Macro-F1.
+    \item \textbf{McNemar Significance Test ($A_4$ vs. $A_5$):} Discordant pair counts are $b = 0$, $c = 0$. The exact two-tailed McNemar test yields $\mathbf{p = 1.0000}$. We fail to reject the null hypothesis: full fusion produces identical predictions to pure NLI on FEVER under tuned thresholds.
+    \item \textbf{Failure of Semantic Similarity Alone ($A_3$):} Setting similarity alone yields 30.60\% accuracy and 0.1564 Macro-F1. Crucially, $A_3$ achieves a Contradiction F1 of exactly \textbf{0.0000}, demonstrating that semantic embeddings cannot detect negation or refutation without cross-attention NLI.
 \end{itemize}
 
 \subsection{Impact of Claim Decomposition on Multi-Claim Generations}
-On 50 synthetic multi-claim composite responses, the monolithic baseline ($A_1$) achieves 86.00\% accuracy [95\% CI: 75.95, 94.00]. Decomposing responses into atomic claims ($A_5$) boosts accuracy to \textbf{94.00\%} [95\% CI: 86.00, 100.00], an empirical gain of \textbf{+8.00\%} ($b=4, c=0, p=0.1250$).
+On 50 synthetic multi-claim composite responses, the monolithic baseline ($A_1$) achieves 86.00\% accuracy [95\% CI: 76.00, 96.00]. Decomposing responses into atomic claims ($A_5$) boosts accuracy to \textbf{94.00\%} [95\% CI: 86.00, 100.00], an empirical gain of \textbf{+8.00\%} ($b=5, c=1, p=0.2188$).
 
 \begin{table}[t]
 \centering
@@ -181,26 +192,26 @@ On 50 synthetic multi-claim composite responses, the monolithic baseline ($A_1$)
 
 \subsection{HaluEval Summarization Benchmark}
 Table~\ref{tab:halueval} documents performance on the pooled HaluEval summarization corpus.
-Dense bi-encoder passage retrieval achieves an extraordinary \textbf{94.51\% Source-Document Hit Rate@1} (86/91 queries correctly identified source passages from the distractor pool of 149 chunks).
+Dense bi-encoder passage retrieval achieves a measured \textbf{94.51\% Source-Document Hit Rate@1} (86/91 queries correctly identified source passages from the distractor pool of 149 chunks).
 When verifying summaries:
 \begin{itemize}
     \item \textbf{A5 (Decomposed System):} Attains \textbf{70.00\% Strict Pairwise Accuracy} (80.00\% counting ties at 0.5) and an \textbf{AUROC of 0.7700}. The system discriminates strongly between factual summaries (mean hallucination rate 0.4678) and hallucinated summaries (mean hallucination rate 0.7381).
-    \item \textbf{A1 (Monolithic Baseline):} Drops to 20.00\% strict accuracy with 7 ties and an AUROC of 0.5500. Atomic claim decomposition delivers a \textbf{+50.0\% boost in pairwise accuracy} and a \textbf{+0.22 increase in AUROC}.
+    \item \textbf{A1 (Monolithic Baseline):} Drops to 20.00\% strict accuracy with 7 ties and an AUROC of 0.5500. Atomic claim decomposition delivers a substantial gain in pairwise accuracy (improving from 20.0\% to 70.0\%) and a \textbf{+0.22 increase in AUROC}.
     \item \textbf{A3 (Similarity Only):} Completely degenerates (10/10 ties, AUROC = 0.5000).
 \end{itemize}
 
 \section{Qualitative Error Taxonomy}
 An exhaustive audit of 20 test-set misclassifications categorized failures into five primary linguistic taxonomies:
 \begin{enumerate}
-    \item \textbf{Numerical Reasoning \& Scalar Bounds (30\%):} E.g., Claim asserts \textit{``Yale has 5 living billionaire alumni''}; Evidence confirms \textit{``Yale has 20 living billionaire alumni''}. DeBERTa predicted Neutral ($P(\text{ent}) = 0.0169$). Our adaptive scalar verifier successfully resolved this case to \textit{Supported}.
-    \item \textbf{Lexical Abstraction \& Paraphrasing (25\%):} Abstract claims (e.g., \textit{``financially profitable''}) penalized by concrete evidence phrasing (\textit{``sold 12 million copies''}).
-    \item \textbf{Geographic \& World Knowledge Exclusion (20\%):} Mutually exclusive states (e.g., \textit{``Governor of Texas''} vs. \textit{``Maine executive''}) classified as Contradicted despite lacking explicit refuting text.
-    \item \textbf{Subtle Negation Threshold Margins (15\%):} Subtle refutations scored $P(\text{contra}) = 0.33$, falling below $\tau_{\text{contra}} = 0.40$.
-    \item \textbf{Entity Polysemy Collisions (10\%):} Dense embeddings conflated named entities (e.g., TV series \textit{House} vs. residential dwellings).
+    \item \textbf{Numerical Reasoning \& Scalar Bounds (10\%, 2 cases):} E.g., Claim asserts \textit{``Yale has 5 living billionaire alumni''}; Evidence confirms \textit{``Yale has 20 living billionaire alumni''}. DeBERTa predicted Neutral ($P(\text{ent}) = 0.0169$). Our adaptive scalar verifier successfully resolved this case to \textit{Supported}.
+    \item \textbf{Lexical Abstraction \& Paraphrasing (20\%, 4 cases):} Abstract claims (e.g., \textit{``financially profitable''}) penalized by concrete evidence phrasing (\textit{``sold 12 million copies''}).
+    \item \textbf{Geographic \& World Knowledge Exclusion (25\%, 5 cases):} Mutually exclusive states (e.g., \textit{``Governor of Texas''} vs. \textit{``Maine executive''}) classified as Contradicted despite lacking explicit refuting text.
+    \item \textbf{Subtle Negation Threshold Margins (20\%, 4 cases):} Subtle refutations scored $P(\text{contra}) = 0.33$, falling below $\tau_{\text{contra}} = 0.40$.
+    \item \textbf{Entity Polysemy Collisions (25\%, 5 cases):} Dense embeddings conflated named entities (e.g., TV series \textit{House} vs. residential dwellings).
 \end{enumerate}
 
 \section{Conclusion and Future Scope}
-In this paper, we presented an evidence-aware claim-level hallucination detection architecture. Through extensive evaluations on FEVER ($N=500$) and HaluEval, we demonstrated that atomic claim decomposition improves hallucination discrimination by +50.0\% pairwise accuracy and +0.22 AUROC over monolithic baselines. Statistical McNemar testing revealed that semantic cosine similarity gating does not significantly outperform pure NLI, while an adaptive scalar module successfully rectifies numerical reasoning failures. Future work will investigate knowledge-graph entity linking and adaptive context window scaling on GPU clusters.
+In this paper, we presented an evidence-aware claim-level hallucination detection architecture. Through extensive evaluations on FEVER ($N=500$) and HaluEval, we demonstrated that atomic claim decomposition improves hallucination discrimination (from 20.0\% to 70.0\% pairwise accuracy, +0.22 AUROC) over monolithic baselines. Statistical McNemar testing revealed that semantic cosine similarity gating does not significantly outperform pure NLI ($p=1.0000$), while an adaptive scalar module successfully rectifies numerical reasoning failures. Future work will investigate knowledge-graph entity linking and adaptive context window scaling on GPU clusters.
 
 \bibliographystyle{IEEEtran}
 \begin{thebibliography}{00}

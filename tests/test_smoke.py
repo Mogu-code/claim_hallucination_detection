@@ -157,17 +157,46 @@ def test_ablation_no_retrieval_gives_no_evidence(verifier):
         assert claim["retrieved_evidence"] == []
 
 
-def test_scalar_verifier_subsumption(verifier):
-    # Tests the DA3 numerical reasoning enhancement
-    res = verifier.verify_claim(
-        "Yale University has five living billionaire alumni.",
-        ["Yale University has 20 living billionaire alumni as of 2023."],
-    )
-    assert res.label == ClaimLabel.SUPPORTED
+def test_scalar_verifier_subsumption_function():
+    from src.scalar_verifier import check_scalar_subsumption
+    # Explicit numerical unit noun comparison: 20 subsumes 5
+    res = check_scalar_subsumption("Yale has 5 living billionaires.", "Yale has 20 living billionaires.")
+    assert res == ("entailment", 0.85)
 
-    res_contra = verifier.verify_claim(
-        "Marie Curie was born in 1905.",
-        ["Marie Curie was born in Warsaw, Poland in 1867."],
-    )
-    assert res_contra.label == ClaimLabel.CONTRADICTED
+    # Years without unit nouns must return None (no year rule)
+    assert check_scalar_subsumption("Marie Curie was born in 1867.", "The Eiffel Tower was completed in 1889.") is None
+    assert check_scalar_subsumption("Born in 1867.", "Born in 1867.") is None
+
+
+def test_paris_vs_warsaw_same_year(verifier):
+    # Same year (1867) must remain CONTRADICTED; scalar verifier must never override CONTRADICTED
+    c = "Marie Curie was born in Paris in 1867."
+    e = ["Marie Curie was born in Warsaw, Poland in 1867."]
+    assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
+    assert verifier.verify_claim(c, e, use_scalar=True).label == ClaimLabel.CONTRADICTED
+
+
+def test_one_vs_two_nobel_prizes(verifier):
+    # "one" vs "two Nobel Prizes": NLI predicts contradiction; scalar verifier must never override CONTRADICTED
+    c = "Marie Curie won one Nobel Prize."
+    e = ["Marie Curie won two Nobel Prizes in Physics and Chemistry."]
+    assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
+    assert verifier.verify_claim(c, e, use_scalar=True).label == ClaimLabel.CONTRADICTED
+
+
+def test_kenya_vs_honolulu_same_year(verifier):
+    # Same year (1961) must remain CONTRADICTED; scalar verifier must never override CONTRADICTED
+    c = "Barack Obama was born in Kenya in 1961."
+    e = ["Barack Obama was born in Honolulu, Hawaii in 1961."]
+    assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
+    assert verifier.verify_claim(c, e, use_scalar=True).label == ClaimLabel.CONTRADICTED
+
+
+def test_irrelevant_passage_different_year(verifier):
+    # Different year in irrelevant passage must be UNSUPPORTED, not CONTRADICTED
+    c = "Marie Curie was born in 1867."
+    e = ["The Eiffel Tower was completed in 1889 in Paris."]
+    assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.UNSUPPORTED
+    assert verifier.verify_claim(c, e, use_scalar=True).label == ClaimLabel.UNSUPPORTED
+
 

@@ -55,6 +55,7 @@ def evaluate_fever_verification(examples: list[dict], verifier: ClaimVerifier,
         "Unsupported": ClaimLabel.UNSUPPORTED,
     }
     
+    predictions = []
     for ex in examples:
         claim = ex["claim"]
         evidence_texts = ex.get("gold_evidence", ex.get("evidence", []))
@@ -80,8 +81,15 @@ def evaluate_fever_verification(examples: list[dict], verifier: ClaimVerifier,
         
         y_true.append(gold_label)
         y_pred.append(result.label)
+        predictions.append({
+            "claim": claim,
+            "gold": gold_label.value,
+            "pred": result.label.value,
+            "evidence_source": ex.get("evidence_source", "copenlu/fever_gold_evidence")
+        })
         
     metrics = _classification_metrics(y_true, y_pred, labels=[ClaimLabel.SUPPORTED, ClaimLabel.CONTRADICTED, ClaimLabel.UNSUPPORTED])
     metrics["n_examples"] = len(examples)
+    metrics["predictions"] = predictions
     return metrics
 

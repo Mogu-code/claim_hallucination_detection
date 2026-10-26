@@ -35,7 +35,7 @@ Supported / Contradicted / Unsupported → Hallucination Score
 │   └── error_analysis.md        Qualitative audit of 20 failure cases
 ├── literature/         Literature comparison table (15 papers with exact metrics)
 ├── src/                Core pipeline modules (decomposition, retrieval, verifier, scalar reasoner)
-├── tests/              Smoke and unit test suite (15 passing tests)
+├── tests/              Smoke and unit test suite (19 passing tests)
 └── requirements.txt
 ```
 
@@ -55,8 +55,9 @@ Supported / Contradicted / Unsupported → Hallucination Score
 ## Experimental Results (FEVER Evaluation)
 
 Evaluated on `copenlu/fever_gold_evidence` validation subset using disjoint splits (`seed=42`):
-- **Tune split:** 200 examples (used exclusively for threshold tuning)
-- **Test split:** 500 examples (evaluated once with tuned thresholds: `entailment=0.40`, `contradiction=0.40`, `min_similarity=0.20`)
+- **Evidence Mode:** Evidence is provided directly via gold sentence candidates (`copenlu/fever_gold_evidence`), not retrieved from a global corpus.
+- **Tune split ($N=200$):** 200 examples (used exclusively for threshold grid search below 0.40 and 0.20)
+- **Test split ($N=500$):** 500 examples (evaluated once with tuned thresholds: `entailment=0.55`, `contradiction=0.30`, `min_similarity=0.05`)
 - **Active Backends:** `verifier=nli_model` (`MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`), `retriever=dense` (`sentence-transformers/all-MiniLM-L6-v2`). Strictly authentic neural inferences; no fallbacks.
 - **In-Distribution Caveat:** Because `DeBERTa-v3-base-mnli-fever-anli` was fine-tuned directly on FEVER, the FEVER test split represents an in-distribution evaluation.
 
@@ -66,9 +67,11 @@ Bootstrap 95% Confidence Intervals computed with 1,000 resamples (`seed=42`):
 
 | Ablation Config | Description | Accuracy [95% CI] | Macro P | Macro R | Macro F1 [95% CI] | Supported F1 | Contradicted F1 | Unsupported F1 |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **A4** | **NLI Only** (no similarity gating) | **84.00%** [80.80%, 87.20%] | **0.8436** | **0.8409** | **0.8419** [0.8103, 0.8725] | **0.8552** | **0.8517** | **0.8187** |
-| **A5** | **Full System** (NLI + Similarity Fusion) | 83.40% [80.40%, 86.80%] | 0.8386 | 0.8344 | 0.8359 [0.8044, 0.8691] | 0.8435 | **0.8517** | 0.8123 |
-| **A3** | **Retrieval Similarity Only** (no NLI) | 32.40% [28.20%, 36.60%] | 0.2188 | 0.3469 | 0.2015 [0.1751, 0.2262] | 0.4845 | 0.0000 | 0.1202 |
+| **A5** | **Full System** (NLI + Similarity Fusion) | 83.40% [80.00%, 86.60%] | 0.8410 | 0.8343 | 0.8361 [0.8015, 0.8678] | 0.8472 | 0.8509 | 0.8103 |
+| **A4** | **NLI Only** (no similarity gating) | 83.40% [80.00%, 86.40%] | 0.8410 | 0.8343 | 0.8361 [0.8027, 0.8668] | 0.8472 | 0.8509 | 0.8103 |
+| **A3** | **Retrieval Similarity Only** (no NLI) | 30.60% [26.40%, 34.60%] | 0.1022 | 0.3333 | 0.1564 [0.1397, 0.1714] | 0.4693 | 0.0000 | 0.0000 |
+| **Baseline-Majority** | **Majority Class (Unsupported)** | 38.20% [34.00%, 42.40%] | 0.1273 | 0.3333 | 0.1843 [0.1692, 0.1985] | 0.0000 | 0.0000 | 0.5528 |
+| **Baseline-Random** | **Uniform Random Baseline** | 30.00% [26.20%, 34.20%] | 0.2987 | 0.3021 | 0.2989 [0.2597, 0.3382] | 0.3363 | 0.2676 | 0.2928 |
 | **A2** | **No Retrieval** | *Skipped* | — | — | — | — | — | — |
 
 *Note on A2:* Skipped on FEVER because isolated atomic claims lack intrinsic document context; without evidence retrieval, claims cannot be resolved and are all trivially labeled Unsupported by definition.
@@ -76,9 +79,9 @@ Bootstrap 95% Confidence Intervals computed with 1,000 resamples (`seed=42`):
 ### Statistical Hypothesis Testing (Exact Paired McNemar Test)
 
 - **A4 vs. A5 on FEVER Test Split ($N=500$):**
-  - Discordant pairs: $b = 3$ (A4 correct, A5 wrong), $c = 0$ (A5 correct, A4 wrong).
-  - Exact two-tailed McNemar test: **$p = 0.2500$** ($p > 0.05$).
-  - **Conclusion:** There is no statistically significant difference between pure NLI (A4) and full fusion (A5). The slight F1 reduction (-0.60%) in A5 is caused by cosine similarity gating falsely penalizing valid lexical paraphrases.
+  - Discordant pairs: $b = 0$ (A4 correct, A5 wrong), $c = 0$ (A5 correct, A4 wrong).
+  - Exact two-tailed McNemar test: **$p = 1.0000$** ($p > 0.05$).
+  - **Conclusion:** There is no statistically significant difference between pure NLI (A4) and full fusion (A5). Under the calibrated threshold $\tau_{\text{sim}} = 0.05$, similarity gating preserves valid lexical paraphrases without altering predictions.
 
 ### Confusion Matrix (A5 Full System on Test Split, N=500)
 
@@ -86,26 +89,26 @@ A high-resolution confusion matrix plot is saved at [`experiments/confusion_matr
 
 | True \ Pred | Supported | Contradicted | Unsupported |
 | :--- | :---: | :---: | :---: |
-| **Supported** | 124 | 5 | 24 |
-| **Contradicted** | 5 | 135 | 16 |
-| **Unsupported** | 12 | 21 | 158 |
+| **Supported** | 122 | 5 | 26 |
+| **Contradicted** | 4 | 137 | 15 |
+| **Unsupported** | 9 | 24 | 158 |
 
-### A1 Ablation: Impact of Claim Decomposition (Synthetic Multi-Claim Responses)
+### A1 Ablation: Impact of Claim Decomposition (Synthetic Multi-Claim Responses, N=50)
 
 Evaluated on 50 synthetic multi-claim responses constructed from paired FEVER claims with verified per-claim ground truth (`synthetic: true`):
-- **A1 (Monolithic / No Decomposition):** 86.00% accuracy [95% CI: 75.95%, 94.00%]
+- **A1 (Monolithic / No Decomposition):** 86.00% accuracy [95% CI: 76.00%, 96.00%]
 - **A5 (Decomposed into Atomic Claims):** **94.00% accuracy** [95% CI: 86.00%, 100.00%]
-- **Performance Gain:** **+8.00% accuracy** ($b = 4, c = 0$, exact McNemar $p = 0.1250$ on $N=50$).
+- **Performance Gain:** **+8.00% accuracy** ($b = 5, c = 1$, exact McNemar $p = 0.2188$ on $N=50$).
 - **Insight:** Verifying composite responses monolithically frequently fails when a paragraph mixes factual statements with a single hallucinated sentence. Decomposing text into atomic assertions enables localized, fine-grained verification.
 
 ### Qualitative Error Analysis
 
 A comprehensive audit of 20 genuine test-set failure cases is documented in [`experiments/error_analysis.md`](file:///c:/Users/MOKSHDAA/Desktop/github/claim-hallucination-detection/experiments/error_analysis.md). The errors span five primary root causes:
-1. **Numerical Reasoning & Scalar Bounds:** E.g., *"Yale has 20 living billionaire alumni"* entails *"has 5"*, but cross-encoders treat scalar subsumption as Neutral.
-2. **Paraphrasing & Lexical Abstraction:** High-level summaries (e.g., *"financially successful"*) penalized by strict evidence phrasing (*"sold 12 million copies"*).
-3. **World Knowledge & Geographic Exclusion:** False Contradiction on Unsupported claims due to background geographic facts not stated in retrieved evidence.
-4. **Subtle Negation & Multi-Hop Refutations:** Subtle negations scored $P(\text{contradiction}) = 0.33$, falling just below the $0.40$ threshold.
-5. **Entity Polysemy & Retrieval Distractors:** Dense retrieval collisions on polysemous named entities (e.g., the TV series *House* vs. residential houses).
+1. **Numerical Reasoning & Scalar Bounds (10%, 2 cases):** Indices 8, 87. E.g., *"Yale has 20 living billionaire alumni"* entails *"has 5"*, but cross-encoders treat scalar subsumption as Neutral.
+2. **Paraphrasing & Lexical Abstraction (20%, 4 cases):** Indices 17, 68, 85, 115. High-level summaries (e.g., *"financially successful"*) penalized by strict evidence phrasing (*"sold 12 million copies"*).
+3. **World Knowledge & Geographic Exclusion (25%, 5 cases):** Indices 1, 31, 59, 75, 125. False Contradiction on Unsupported claims due to background geographic facts not stated in retrieved evidence.
+4. **Subtle Negation & Multi-Hop Refutations (20%, 4 cases):** Indices 12, 48, 93, 119. Subtle negations scored $P(\text{contradiction}) = 0.33$, falling just below threshold.
+5. **Entity Polysemy & Retrieval Distractors (25%, 5 cases):** Indices 37, 46, 51, 83, 129. Dense retrieval collisions on polysemous named entities (e.g., the TV series *House* vs. residential houses).
 
 ---
 
@@ -145,7 +148,7 @@ Evaluated on the `summarization` subset of HaluEval with fixed seed (`seed=42`),
 # Install dependencies
 pip install -r requirements.txt
 
-# Run unit and smoke test suite (14 tests)
+# Run unit and smoke test suite (19 tests)
 python -m pytest tests/ -v
 
 # Run the end-to-end pipeline demonstration

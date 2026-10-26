@@ -3,15 +3,15 @@
 **Course:** BCSE306L — Natural Language Processing  
 **Dataset:** FEVER (`copenlu/fever_gold_evidence`, Dev Test Split, $N=500$, Seed=42)  
 **Evaluated Model:** $A_5$ Full System (NLI + Dense Retrieval Similarity Fusion)  
-**Thresholds Applied:** $\tau_{\text{ent}} = 0.40$, $\tau_{\text{contra}} = 0.40$, $\tau_{\text{sim}} = 0.20$ (tuned on disjoint 200-sample tune split)
+**Thresholds Applied:** $\tau_{\text{ent}} = 0.55$, $\tau_{\text{contra}} = 0.30$, $\tau_{\text{sim}} = 0.05$ (tuned on disjoint 200-sample tune split with extended grid)
 
 ---
 
 ## 1. Quantitative Performance Overview
 
 On the disjoint 500-sample FEVER test split, the full fusion system ($A_5$) achieved:
-- **Accuracy:** 83.40% [95% Bootstrap CI: 80.40%, 86.80%]
-- **Macro-F1:** 0.8359 [95% Bootstrap CI: 0.8044, 0.8691]
+- **Accuracy:** 83.40% [95% Bootstrap CI: 80.00%, 86.60%]
+- **Macro-F1:** 0.8361 [95% Bootstrap CI: 0.8015, 0.8678]
 - **Total Test Examples:** 500
 - **Correct Predictions:** 417 (83.4%)
 - **Total Misclassifications:** 83 (16.6%)
@@ -23,15 +23,15 @@ The confusion matrix below highlights the distribution of these 83 misclassifica
 ```
                        Predicted Label
                  Supported  Contradicted  Unsupported
-True Supported       124          5            24
-True Contradicted      5        135            16
-True Unsupported      12         21           158
+True Supported       122          5            26
+True Contradicted      4        137            15
+True Unsupported       9         24           158
 ```
 
 Key observations from the confusion matrix:
-1. **False Unsupported Errors ($Supported \to Unsupported$, $N=24$):** The largest single source of error occurs when genuine entailment fails to cross the conservative entailment threshold ($\tau_{\text{ent}} = 0.40$) or the semantic similarity gate ($\tau_{\text{sim}} = 0.20$) due to paraphrasing or numerical reasoning.
-2. **Unsupported vs. Contradicted Confusion ($Unsupported \to Contradicted$, $N=21$):** Negative facts or geographical mutual exclusion (e.g., being Governor of Texas vs. Maine) lead the NLI model to infer a contradiction, whereas human FEVER annotators strictly labeled the claim as *Not Enough Info* (Unsupported) due to the absence of explicit disproof.
-3. **Subtle Refutation Misses ($Contradicted \to Unsupported$, $N=16$):** Complex negations, implicit role distinctions, or missing contextual dates fail to trigger the contradiction threshold ($\tau_{\text{contra}} = 0.40$).
+1. **False Unsupported Errors ($Supported \to Unsupported$, $N=26$):** The largest single source of error occurs when genuine entailment fails to cross the calibrated entailment threshold ($\tau_{\text{ent}} = 0.55$) or the semantic similarity gate ($\tau_{\text{sim}} = 0.05$) due to paraphrasing or numerical reasoning.
+2. **Unsupported vs. Contradicted Confusion ($Unsupported \to Contradicted$, $N=24$):** Negative facts or geographical mutual exclusion (e.g., being Governor of Texas vs. Maine) lead the NLI model to infer a contradiction, whereas human FEVER annotators strictly labeled the claim as *Not Enough Info* (Unsupported) due to the absence of explicit disproof.
+3. **Subtle Refutation Misses ($Contradicted \to Unsupported$, $N=15$):** Complex negations, implicit role distinctions, or missing contextual dates fail to trigger the contradiction threshold ($\tau_{\text{contra}} = 0.30$).
 
 ---
 
@@ -39,7 +39,7 @@ Key observations from the confusion matrix:
 
 The 20 misclassified cases extracted directly from the test split ([experiments/error_cases.json](file:///c:/Users/MOKSHDAA/Desktop/github/claim-hallucination-detection/experiments/error_cases.json)) are grouped into five distinct root-cause taxonomies:
 
-### Taxonomy 1: Numerical Reasoning & Scalar Bounds (False Unsupported)
+### Taxonomy 1: Numerical Reasoning & Scalar Bounds (False Unsupported) — 2 Cases (10.0%)
 The NLI model struggles with downward entailment and scalar quantities where a larger number logically entails a smaller subset.
 
 * **Case 1 (Index 8):**
@@ -47,18 +47,18 @@ The NLI model struggles with downward entailment and scalar quantities where a l
   * **Gold Label:** `Supported` | **Predicted Label:** `Unsupported`
   * **Evidence:** *"Yale has graduated many notable alumni , including five U.S. Presidents , 19 U.S. Supreme Court Justices , 20 living billionaires , and many heads of state ."*
   * **Scores:** $P(\text{ent}) = 0.2913$, $P(\text{contra}) = 0.1296$, $\text{Sim} = 0.8230$
-  * **Root Cause:** DeBERTa treats the scalar discrepancy ("20 living billionaires" vs. "five billionaires") as a neutral mismatch rather than realizing that 20 living billionaires logically subsumes five ($20 \ge 5$). Because $P(\text{ent}) < 0.40$, it was classified as Unsupported.
+  * **Root Cause:** DeBERTa treats the scalar discrepancy ("20 living billionaires" vs. "five billionaires") as a neutral mismatch rather than realizing that 20 living billionaires logically subsumes five ($20 \ge 5$). Because $P(\text{ent}) < 0.55$, it was classified as Unsupported.
 
-* **Case 2 (Index 145/87):**
+* **Case 2 (Index 87):**
   * **Claim:** *"Matthias Corvinus had one of the largest collections of books in Europe during the Renaissance in the 1450's."*
   * **Gold Label:** `Supported` | **Predicted Label:** `Unsupported`
   * **Evidence:** *"Matthias patronized art and science ; his royal library , the Bibliotheca Corviniana , was one of the largest collections of books in Europe ."*
   * **Scores:** $P(\text{ent}) = 0.2603$, $P(\text{contra}) = 0.0045$, $\text{Sim} = 0.7571$
-  * **Root Cause:** The evidence confirms the collection was one of Europe's largest, but omits the exact decade ("1450's"). The model penalizes the missing temporal token, yielding $P(\text{ent}) = 0.2603 < 0.40$.
+  * **Root Cause:** The evidence confirms the collection was one of Europe's largest, but omits the exact decade ("1450's"). The model penalizes the missing temporal token, yielding $P(\text{ent}) = 0.2603 < 0.55$.
 
 ---
 
-### Taxonomy 2: Paraphrasing & Lexical Abstraction (False Unsupported)
+### Taxonomy 2: Paraphrasing & Lexical Abstraction (False Unsupported) — 4 Cases (20.0%)
 Claims that require high-level abstraction or non-literal semantic inference fail to generate sufficient direct entailment probability.
 
 * **Case 3 (Index 17):**
@@ -91,7 +91,7 @@ Claims that require high-level abstraction or non-literal semantic inference fai
 
 ---
 
-### Taxonomy 3: World Knowledge & Geographic Exclusion (Unsupported $\to$ Contradicted)
+### Taxonomy 3: World Knowledge & Geographic Exclusion (Unsupported $\to$ Contradicted) — 5 Cases (25.0%)
 When candidate evidence mentions an entity's real property, the model infers mutual exclusivity with the claim's property and outputs Contradiction, whereas FEVER guidelines classify it as Unsupported (NEI).
 
 * **Case 7 (Index 1):**
@@ -115,12 +115,12 @@ When candidate evidence mentions an entity's real property, the model infers mut
   * **Scores:** $P(\text{ent}) = 0.0503$, $P(\text{contra}) = 0.8521$, $\text{Sim} = 0.6654$
   * **Root Cause:** The year 1970 in the evidence directly contradicts 1971 in the claim ($P(\text{contra}) = 0.8521$). FEVER gold annotation marked this NEI/Unsupported due to annotation disagreement.
 
-* **Case 10 (Index 46):**
+* **Case 10 (Index 31):**
   * **Claim:** *"Earl Scruggs was an actor"*
   * **Gold Label:** `Unsupported` | **Predicted Label:** `Contradicted`
-  * **Evidence:** *"Earl Scruggs introduced a vocabulary of `` licks '' , short musical phrases that are reused in many different songs ."*
+  * **Evidence:** *"Beginning with his first recordings with Bill Monroe and His Blue Grass Boys , and later with Lester Flatt , Earl Scruggs and the Foggy Mountain Boys , Earl Scruggs introduced a vocabulary of `` licks '' , short musical phrases that are reused in many different songs ."*
   * **Scores:** $P(\text{ent}) = 0.0081$, $P(\text{contra}) = 0.7974$, $\text{Sim} = 0.5728$
-  * **Root Cause:** DeBERTa considers professional identity as a musician mutually exclusive with actor ($P(\text{contra}) = 0.7974$).
+  * **Root Cause:** DeBERTa considers professional identity as a musician mutually exclusive with actor ($P(\text{contra}) = 0.7974 \ge 0.30$).
 
 * **Case 11 (Index 125):**
   * **Claim:** *"Caroline Kennedy served as Japanese Ambassador to the United States."*
@@ -131,7 +131,7 @@ When candidate evidence mentions an entity's real property, the model infers mut
 
 ---
 
-### Taxonomy 4: Complex Negation & Subtle Contradiction (False Unsupported)
+### Taxonomy 4: Complex Negation & Subtle Contradiction (False Unsupported) — 4 Cases (20.0%)
 The claim negates an event or asserts non-involvement, but the evidence phrases the relationship positively without overt antonyms, leaving contradiction probability under threshold.
 
 * **Case 12 (Index 12):**
@@ -164,7 +164,7 @@ The claim negates an event or asserts non-involvement, but the evidence phrases 
 
 ---
 
-### Taxonomy 5: Entity Polysemy & Retrieval Distractor Mismatches
+### Taxonomy 5: Entity Polysemy & Retrieval Distractor Mismatches — 5 Cases (25.0%)
 Dense retrieval retrieves an entity with the same surface form but an entirely different semantic category, corrupting downstream NLI reasoning.
 
 * **Case 16 (Index 129):**
@@ -195,7 +195,7 @@ Dense retrieval retrieves an entity with the same surface form but an entirely d
   * **Scores:** $P(\text{ent}) = 0.5957$, $P(\text{contra}) = 0.0023$, $\text{Sim} = 0.6990$
   * **Root Cause:** Spurious correlation: "New York playwright" does not strictly prove birth in New York, but DeBERTa associates geographical adjectives directly with the birth location ($P(\text{ent}) = 0.5957 \ge 0.40$).
 
-* **Case 20 (Index 46b/64):**
+* **Case 20 (Index 46):**
   * **Claim:** *"Baz Luhrmann's film Australia is solely an epic historical romantic comedy."*
   * **Gold Label:** `Supported` (FEVER claim formulation) | **Predicted Label:** `Contradicted`
   * **Evidence:** *"His 2008 film Australia is an epic historical romantic drama film starring Hugh Jackman and Nicole Kidman ."*

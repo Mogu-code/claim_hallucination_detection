@@ -7,6 +7,7 @@ __pycache__/
 .Python
 build/
 dist/
+.pytest_cache/
 
 # Virtual environments
 venv/
@@ -21,19 +22,20 @@ env/
 *.key
 
 # Data (never commit raw datasets)
-data/raw/
+data/cache/
 data/*.csv
 data/*.json
 data/*.jsonl
 data/*.parquet
 !data/README.md
 
-# Model checkpoints / large artifacts
+# Model checkpoints / large artifacts / downloaded models
 checkpoints/
 *.pt
 *.pth
 *.bin
 *.ckpt
+.cache/
 
 # OS
 .DS_Store
@@ -42,3 +44,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+*.code-workspace
+
+# Local developer scratch directory
+scratch/

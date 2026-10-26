@@ -48,6 +48,7 @@ class ClaimVerifier:
         self.config = config or NLIConfig()
         self._nli_pipeline = None
         self.active_backend = None
+        self._cache = {}
         self._try_load_nli()
 
     def _try_load_nli(self) -> None:
@@ -77,6 +78,9 @@ class ClaimVerifier:
             self.active_backend = "lexical_fallback"
 
     def _nli_scores(self, claim: str, evidence: str) -> dict:
+        cache_key = (evidence, claim)
+        if hasattr(self, "_cache") and cache_key in self._cache:
+            return self._cache[cache_key]
         if self.active_backend == "nli_model":
             # call the pipeline with {"text": evidence, "text_pair": claim}, not a "[SEP]" string
             raw = self._nli_pipeline({"text": evidence, "text_pair": claim})
@@ -91,10 +95,15 @@ class ClaimVerifier:
             for item in scores:
                 norm_label = self.label_map.get(item["label"], "neutral")
                 mapped_scores[norm_label] = item["score"]
+            if hasattr(self, "_cache"):
+                self._cache[cache_key] = mapped_scores
             return mapped_scores
-        return self._lexical_fallback_scores(claim, evidence)
+        fallback_res = self._lexical_fallback_scores(claim, evidence)
+        if hasattr(self, "_cache"):
+            self._cache[cache_key] = fallback_res
+        return fallback_res
 
-    def batch_nli_scores(self, pairs: list[dict], batch_size: int = 64) -> list[dict]:
+    def batch_nli_scores(self, pairs: list[dict], batch_size: int = 64, max_length: int = 128) -> list[dict]:
         """
         Compute NLI scores for a batch of {"text": evidence, "text_pair": claim} pairs.
         Vectorized tensor batching with dynamic padding yields >20x speedup on CPU.
@@ -121,7 +130,7 @@ class ClaimVerifier:
                 texts = [p["text"] for p in batch]
                 text_pairs = [p["text_pair"] for p in batch]
                 with torch.inference_mode():
-                    enc = tokenizer(texts, text_pairs, padding=True, truncation=True, max_length=128, return_tensors="pt").to(device)
+                    enc = tokenizer(texts, text_pairs, padding=True, truncation=True, max_length=max_length, return_tensors="pt").to(device)
                     logits = model(**enc).logits
                     probs = torch.softmax(logits, dim=-1).cpu().numpy()
 
@@ -133,6 +142,8 @@ class ClaimVerifier:
                         norm_label = self.label_map.get(label_str, "neutral")
                         mapped[norm_label] = float(prob_val)
                     all_scores[orig_i] = mapped
+                    if hasattr(self, "_cache"):
+                        self._cache[(batch[idx_in_b]["text"], batch[idx_in_b]["text_pair"])] = mapped
 
                 if len(pairs) > 32:
                     done = min(i + batch_size, len(sorted_pairs))
@@ -169,7 +180,8 @@ class ClaimVerifier:
         return len(claim_words & evidence_words) / len(claim_words | evidence_words)
 
     def verify_claim(self, claim: str, evidence: list,
-                      use_nli: bool = True, use_similarity: bool = True) -> VerificationResult:
+                      use_nli: bool = True, use_similarity: bool = True,
+                      use_scalar: bool = False) -> VerificationResult:
         """
         Classify a claim against the best-matching retrieved evidence passage.
 
@@ -178,6 +190,8 @@ class ClaimVerifier:
             evidence: Retrieved evidence texts (list of str, or dicts with 'text' and 'score').
             use_nli: If False, entailment/contradiction signals are ignored.
             use_similarity: If False, the similarity signal is ignored.
+            use_scalar: Exploratory feature (default: False). If True, enables
+                rule-guided scalar and numerical bound verification.
 
         Returns:
             VerificationResult with the fused label and component scores.
@@ -215,8 +229,9 @@ class ClaimVerifier:
         any_contradiction = use_nli and (best_contra[0]["contradiction"] >= self.config.contradiction_threshold)
         label = self._fuse(best_entail[0], best_entail[1], use_nli, use_similarity, any_contradiction)
 
-        # DA3 Enhancement: Adaptive Scalar / Numerical Reasoning Check
-        if use_nli and label != ClaimLabel.SUPPORTED:
+        # DA3 Exploratory Enhancement: Adaptive Scalar / Numerical Reasoning Check
+        # Strictly exploratory; never allowed to override a CONTRADICTED label.
+        if use_scalar and use_nli and label != ClaimLabel.CONTRADICTED:
             from src.scalar_verifier import check_scalar_subsumption
             for item in evidence:
                 passage = item.get("text", "") if isinstance(item, dict) else str(item)
@@ -224,13 +239,16 @@ class ClaimVerifier:
                 if scalar_res:
                     s_type, s_conf = scalar_res
                     if s_type == "entailment" and s_conf >= self.config.entailment_threshold:
-                        label = ClaimLabel.SUPPORTED
-                        best_entail = ({"entailment": s_conf, "contradiction": 0.0, "neutral": 1.0 - s_conf}, best_entail[1], passage)
-                        break
+                        # Never let scalar verifier override a CONTRADICTED label
+                        if label != ClaimLabel.CONTRADICTED:
+                            label = ClaimLabel.SUPPORTED
+                            best_entail = ({"entailment": s_conf, "contradiction": 0.0, "neutral": 1.0 - s_conf}, best_entail[1], passage)
+                            break
                     elif s_type == "contradiction" and s_conf >= self.config.contradiction_threshold:
-                        label = ClaimLabel.CONTRADICTED
-                        best_contra = ({"entailment": 0.0, "contradiction": s_conf, "neutral": 1.0 - s_conf}, best_contra[1], passage)
-                        break
+                        if label != ClaimLabel.CONTRADICTED:
+                            label = ClaimLabel.CONTRADICTED
+                            best_contra = ({"entailment": 0.0, "contradiction": s_conf, "neutral": 1.0 - s_conf}, best_contra[1], passage)
+                            break
 
         if label == ClaimLabel.CONTRADICTED:
             nli, sim, passage = best_contra

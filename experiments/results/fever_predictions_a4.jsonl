@@ -1,0 +1,500 @@
+{"claim": "WGBH-TV is located in the capital of Maine.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tottenham Hotspur F.C. is a football club.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Angelsberg is a city.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Angela Bassett received a teacher's salary from Yale University.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Rhythm Nation was covered by a Korean music group.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The King and I is based on a novel by a British writer born in 1903.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Saxony is only in Spain.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Yale University's alumni includes five billionaires.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Hungarian invasions were ended by Otto I, Holy Roman Emperor.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Stephen Hillenburg developed an interest in woman.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Richard Dawkins makes regular internet and television appearances.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Hundred Years' War does not include the Edwardian Era War.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Veeru Devgan works in Hollywood.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Marjorie Gross was a writer for The Big Bang Theory.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ann Richards was a Muslim.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Aaron Burr's final year of his single term vice presidency was 1804.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Bad Romance was profitable around the world.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Polynesian languages include several speakers.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Smriti Mandhana was born July 20.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Folklore includes bears.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Basildon has three bus stops.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "English people are descended from peoples.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "2016 Tour de France was a race.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ernest Medina was court martialed in Japan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Starrcade was a one-time-only professional wrestling event.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Fabian Nicieza is a doctor.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Folklore includes jokes.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kuching is the capital and most populous city in Sarawak.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Diana, Princess of Wales married Glenn Beck", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ed Wood is a motion picture.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Earl Scruggs was an actor", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Peter Yates directed the film Bullitt.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "David Spade starred in Sanshiro Sugata.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Miranda Otto is a daughter.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Adventures of Pluto Nash admonishes Eddie Murphy.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Mick Thomson is a guitarist.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kenneth Lonergan was born in New York.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Prescott, Arizona is in Arizona.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Republic of Macedonia is in Europe.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Birthday Song (2 Chainz song) was written by Anthony Kilhoffer.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Scotty Moore was a recording engineer for Sony.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Prescott, Arizona is in Pima County, Arizona.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Beach was released in 2000 across theaters in America.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Jos\u00e9 Ferrer was a writer of plays.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Scotty Moore died on June 28, 2016.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Baz Luhrmann's film Australia is solely an epic historical romantic comedy.", "gold": "Supported", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "In the End was the only song released through Warner Bros.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Sheryl Lee has yet to appear in a film as of 2016.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Wildfang is a US-based women's apparel company featuring pants that are tomboyish in style.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The CONCACAF Champions League is organized by the NBA.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Vedam is a 2010 Indian drama film.", "gold": "Supported", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "First Motion Picture Unit produced more than 400 American films.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Soyuz was part of the Indian space program.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "TakePart is unaffiliated with any motion picture studio.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "NRG Recording Studios is located in a house in North Hollywood, California.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The King and I is based on a play.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "23 percent of the University of Mississippi's students are minorities, with over 60 percent of the overall population coming from the state.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Steve Wozniak was born before the invention of a microcomputer.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ann Richards was the head of the executive branch of Maine's government.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ryan Gosling stars in Blade Runner 2049.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Liverpool was the town where The Beatles formed.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "San Diego Comic-Con was not founded as the Golden State Comic Book Convention.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Morse code is less sensitive to poor signal conditions.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Sancho Panza is a real person.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kuching is a province of Taiwan.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tamerlan Tsarnaev has been to Boston.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Marvel vs. Capcom: Infinite is only a comic.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "James VI and I was a major advocate of a single parliament for England.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Beach was directed by Danny Boyle in 2000.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Southampton F.C. has won court settlements.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Basildon is in Denmark.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "In the End has instruments in it.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Billie Joe Armstrong is a solo artist.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Don Hall is a painter.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Asylum Records is an American record label founded in 1971 by David Geffen and musician Elliot Roberts.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Matthew Gray Gubler is a citizen of the United States of America since his naturalization in 2005.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Colombiana was written by Luc Besson.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ashley Graham was on a magazine cover in 2005.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Basildon is in Denmark.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The CONCACAF Champions League is rarely organized for football clubs in Central America.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Charles Manson is a Texan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Michigan is the eighth most populous of the 50 United States.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Akkineni Nageswara Rao shot Daag.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "corpus retrieval (NEI, backend=dense)"}
+{"claim": "The New York City Landmarks Preservation Commission includes three fishermen.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Henry VIII (TV serial) features an English actor in a leading role.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tiber Oil Field was discovered on September 7, 2009.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Matthias Corvinus had one of the largest collections of books in Europe during the Renaissance in the 1450's.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Edgar Wright is a producer.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Dark Tower is a film.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Julianne Moore was not in the television series As the World Turns.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ripon College has been destroyed since at least 2015.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Recovery is an Eminem song.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Entourage (film) was a film adaptation of a comic.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Rob Sheridan was born in 1980.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mani Ratnam makes films.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Regina King refuses to be an actress.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "First Motion Picture Unit produced informative action films.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Phillip Glass has listened to eleven concertos.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Fred Armisen is a screenwriter for television series.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "A monster is only found in reality.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Good Wife is not on network television.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Eddie Murphy rejected all offers to star in The Adventures of Pluto Nash.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "In 2010, the metropolitan area of Syracuse, New York, had a metropolitan population of more than 600,000.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Edison Machine Works was founded to make big motors running on electricity.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Paramore is not American.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Harold Macmillan served as the first Prime Minister of the United Kingdom.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "There is a capital called Mogadishu.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Angela Bassett is alive and working in the 2010s.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "TakePart is the digital division of a Chilean film production company.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Palo Alto, California is an imperial city.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Fist of Legend is a remake of a film.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Wilhelmina Slater is a fictional setting.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Magyars were defeated by Otto I, Holy Roman Emperor.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "You Belong with Me is a fan club.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Liverpool was where The Beatles came together.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Andrew Kevin Walker was born on a boat.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Kendall Jenner was in Time magazine.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Brick (film) is a Canadian film.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Paul Nicholls created Joe Wicks.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tinker Tailor Soldier Spy is only a TV show.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ron Weasley is a character in the Harry Potter series.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Craig David is a British pop music performer.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "There is a film called A River Runs Through It.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Margaret Thatcher was a prime minister.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Caroline Kennedy served as Japanese Ambassador to the United States.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The horse did not used to be multi-toed.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "North Vietnam was officially called another name.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Forceps are a hinged instrument.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "House is a sitcom.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "New Orleans Pelicans compete in the NBA in the Western Conference .", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Harvard University is the first University in the U.S.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "David Spade worked with graves.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Psych's protagonist is not played by an American actor.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Chile is in Asia.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "A View to a Kill is only a book.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Dan O'Bannon was a dancer and theater director.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Don Hall is a television director.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Edison Machine Works was set up to produce dynamos and it was successful.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Endless River is Pink Floyd's reunion tour.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "T2 Trainspotting copied a 2017 British comedy drama film.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Penguin Books revolutionized flying in the 1930s.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "DJ Quik's maiden name is David Marvin Blake.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Trevor Griffiths was born in an inner city area.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Christa McAuliffe refused to ever work as a teacher.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Arizona is not a state.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "DJ Quik is a jockey and polo player.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Pirates of the Caribbean was made in secret in 1983.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Others (2001 film) lost Best Director.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "DreamWorks Animation produced Trollhunters.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "So You Think You Can Dance premiered on CBS.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Bassoon King is only a film.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The only film ever created in 1997 was Soul Food.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Men in Black II stars an actor born on March 15, 1968.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Noel Fisher portrayed a fictional character.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Always is a Swiss film.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Princess Mononoke only has a peaceful setting.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Pelican Brief is a 1993 United States Supreme Court decision.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Albert S. Ruddy is regarded as a television producer.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Margaret Thatcher led a major political party in the United Kingdom.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tinker Tailor Soldier Spy is only a TV show.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Greek language is spoken only outside of Greece.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Daily Show is incapable of focusing on political figures.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tilda Swinton is a performance artist.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tongan is a Polynesian language.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Despacito had multiple versions.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The New York Knicks compete in the National League.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Mount Rushmore was built by Tim Howd and his pet snake Lincoln Borglum.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ann Richards was the head of the executive branch of a state government.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Knocked Up was released on Monday June 1, 2007.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Taran Killam is a person.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kellogg's products began to be manufactured in 1980.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Match Point is an unadapted novel.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Baz Luhrmann's film Australia stars an Australian actor, singer, and pet owner.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Lemmy was unknown due to his appearance.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Wallace is a poem.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Washington Wizards were the winners of four conference titles.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Riverdale is an adaptation.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Yara Shahidi is a dog.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The French Resistance executed acts of sabotage on Germans.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Camden, New Jersey is a country.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Australia (2008 film) production took place ina  town and locality in the Whitsunday Region on the eastern coast of Queensland, Australia.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The United Nations Charter was drafted in France.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Joe Rogan pitched an American baseball sitcom.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tottenham Hotspur F.C. is British.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kellogg's is only an idea.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "James VI and I razed the Plantation of UIster.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "There is a science fiction film with Riddick.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Aleister Crowley was European.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Roswell was co-written by Jason Katims's daughter.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ron Weasley is a member of the United States Marines.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Michaela Watkins is only a singer.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "\"I Feel for You\" by Chaka Khan was released in Africa.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Bones was cancelled by Hart Hanson.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Dark Tower was released by Stephen King.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The former name of Marcus Bentley is Potter.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Prescott, Arizona is outside of the United States.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Cheese in the Trap (TV series) is a television series.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "History of Earth dates back billions of years.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "In a Lonely Place is only a book without a script.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Colin Kaepernick is a person who plays football.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "In the End has guitar in it.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Al Jardine was unable to sing.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Terry Crews only played amateur football.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Jenna Jameson has been naked on advertisements in Times Square.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Swordfish (film) is a film that is about a type of person.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "An American singer-songwriter made Hourglass.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Hindu Kush is a mountain range between India and Pakistan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Sean Penn is a film actor.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Osamu Tezuka was a young child in 2000.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Buffy Summers has been portrayed by an actress.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Michaela Watkins has a full name.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Reign Over Me was released in 2007.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Roswell is a two-part TV series.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The New York City Landmarks Preservation Commission includes three fishermen.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Miracle at St. Anna only tells the story of four cats.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Excuse My French is a studio EP.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "I Kissed a Girl is part of Katy Perry's second studio jazz album.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Homer Hickman is a writer of historical fiction books.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Raees (film) stars an Indian film actor born in a hospital.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Raees (film) has an all-American cast.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Meteora is not an album by an American band.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mike Huckabee hosts Oprah.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Rupert Murdoch has worked since at least 1979 and has been criticized.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Eric Church is an American citizen.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Highway to Heaven is an American mob.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Carlos Santana received popular acclaim in the nineties.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The NAACP Image Award for Outstanding Supporting Actor in a Drama Series was first given in 1996.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Cretaceous is yet to start.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Don Hall is a songwriter.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Melancholia was directed by Bob Dole.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Roswell is a TV series that was created in the United States.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "James VI and I was a person.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Shadowhunters debuted on Freeform.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Varsity Blues (film) was filmed with a $16 million budget.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Janelle Mon\u00e1e has only ever been a plumber.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Others (2001 film) won eight Academy Awards.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Rachel Green was played by Courtney Cox.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kim Jong-il is designated a posthumous title.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The dress inspired fresh insights into dressmaking.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Sayyeshaa starred in Tamil drama Akhil.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Capsicum chinense is a German species of chili pepper.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Chaka Khan is a musician with more than 400 singles.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Shane Black was born in 1962.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Miranda Otto began her acting career in 1886.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "In 1971 the American record label asylum Records was founded.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Poldark airs on the BBC.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Trollhunters was produced by DreamWorks Animation in 2002.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Janet Leigh was an actress.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Raabta (song) is a song that has only been featured in The Matrix.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Jenna Jameson has been illustrated.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tim McGraw was in a play with Reese Witherspoon.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Bea Arthur was conceived on May 13th, 1922.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Angela Bassett is alive and working in the 2010s.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Osamu Tezuka has a dog.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "No Country for Old Men was selected as the best of 2007 by the Pulitzer Committee.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tim McGraw acted in a 2009 American biographical sports drama play.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tilda Swinton is vegan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Beaverton, Oregon is a city.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The New Orleans Pelicans only play in the NHL.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Awkward Black Girl is an American drama web series.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Capsicum chinense is only native to the continent of Europe.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Duff McKagan is Texan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "David Spade starred in Sunless.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Gin is a name.", "gold": "Contradicted", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Girl is by Waluigi.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Helmand Province is in the Middle East.", "gold": "Contradicted", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kerplunk is by a Russian pop band.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The final season of Lost was watched by an average of 11 million viewers per episode.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Eighth Doctor is on Carpenter Who.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Eric Church is an American singer.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Smriti Mandhana has always been unable to play sports.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "in 2015, Gal Gadot was ranked ahead of Shlomit Malka for highest earning actress/models in Israel.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "BSkyB was formed by Rupert Murdoch.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Finding Dory was directed.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Stephen Hillenburg died in Oklahoma.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Michael Vick is a former football quarterback.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Alice Cooper sings, writes songs, and acts for a living.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Uranium-235 was discovered by a person who died in March.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Armenian Genocide occurred during the Second Constitutional Era.", "gold": "Supported", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Bradley Fuller was arrested with Andrew Form.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Paul Nicholls played Joe Wicks on EastEnders.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "X-Men: Apocalypse is a work.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ed Wood is about the eponymous actor.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Starrcade was regarded by the NWA and WCW as their least important event of the year.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Miranda Otto is the sister of Gracie Otto.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Henry II of France is a father of three sons.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The State of Palestine claims a territory in East Asia.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Luis Fonsi is a rapper.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Bassoon King is based in reality.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Chrysler Building is under a lot of security.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Lincoln-Douglas debates happened in Milton", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Sidse Babett Knudsen is Europe.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Duane Chapman quit being a bail bondsman to be a bounty hunter.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Swordfish (film) is a film that is about a farmer..", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Anne Sullivan was born in Illinois in 1866.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Kentucky is famous for its bourbon distilleries.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Rachel Green was played by Courtney Cox.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Yale University's alumni includes 20 living millionaires.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Kellyanne Conway has been embroiled in a series of crimes.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Alice Cooper's career spans over five decades in the entertainment industry.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Adventures of Pluto Nash was directed by Ron Underwood in 2006.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Recovery only has one singer on it, Drake.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Peking University was founded by two men.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The horse did not begin to become domesticated around 4000 BC.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Aristotle spent almost 20 years at the Academy.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Season 2 of Fargo is a sequel to the events in the first season.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "WGBH-TV is located in a slum.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Swordfish (film) is a film that is about a farmer..", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Basildon has three bus stops.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Fidel Castro was a person.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Richard Dawkins has yet to appear on the radio.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "International students come to the University of Mississippi from 90 cities.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "DNA features songs.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The 100 also follows the teens parents.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Matthew Gray Gubler is a public enemy of the United States of America.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Harold Macmillan worked in politics.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "James VI and I was a lackey.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Mel B released a work.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Kuching is in Sri Lanka.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Veeru Devgan is from India.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Others (2001 film) won eight lotteries.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "corpus retrieval (NEI, backend=dense)"}
+{"claim": "Melancholia is a science fiction thriller film starring Charlotte Gainsbourg.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Hot Right Now is off of a DJ Fresh album.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "L.A. Reid hasn't served as a CEO.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Fred Armisen is a cat.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Marvel vs. Capcom is part of a trilogy.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Rage Against the Machine is a choir.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Saturn is the second-largest planet in the Solar System.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Valencia has about 100,000 inhabitants in the administrative centre.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "House ended after its pilot.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Diana, Princess of Wales married Glenn Beck", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Dark Tower was released in China.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Camden, New Jersey is a city.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Renato Balestra was born in Naples.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Alice Cooper's career has spanned for just under 40 years.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "A&E is an American channel.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tom DeLonge formed Blink-182 in 2002.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Joe Walsh was brought into the Vocal Group Hall of Fame.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Peking University is in Guam.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tom Baker is from America.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Pen\u00e9lope Cruz has modeled for the clothing company Mango.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Rio's sequel was released on April 11, 2014.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Good Wife is a movie.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "A View to a Kill is a title.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Rage Against the Machine is a band.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Awkward Black Girl is without a star.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Due Date was only shot in India.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Henry II of France suffered an untimely death.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Vietnam is a populous country.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Uranium-235 was discovered five years before 1935.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Winter's Tale is a collaborative work by 300 authors.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Star Trek: Discovery is based on the series created by George Lucas.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Underdog was directed by Frederik Du Chau.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Harvard University is not a research university.", "gold": "Supported", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tatum O'Neal was born in 1987.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Despicable Me 2 was animated by Pixar.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Miracle at St. Anna is set primarily in France.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Basildon is English.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Barry Van Dyke is an American actor from California.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Aunt May is a fictional character that often plays a prominent role.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Martin Van Buren was exclusively unelected.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Justine Bateman writes.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "West Virginia borders Maine to the southeast.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Crips had an estimated 30,000 to 35,000 members in Baltimore.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "David Packouz was born in 1981.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mary-Kate Olsen and Ashley Olsen are video game designers.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Kenneth Lonergan is the writer of Pacific Rim.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The dress was investigated by neurological scientists.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The White House Press Secretary is a low-ranking official.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Omar Khadr was sentenced.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Concert for Bangladesh is seen as a highly successful and influential humanitarian aid project.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Fabian Nicieza created over a hundred characters for comic books.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tom Baker has had directing roles.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Ian Brennan has only ever worked in finance.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Adventures of Pluto Nash was reviewed by Ron Underwood.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Telemundo is a English-language television network.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The human brain is home to the conscience.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Knocked Up was released in 2007.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Dreamer (2005 film) was directed by an American screenwriter, director, and actor.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Dan O'Bannon has only ever been plumber for a profession.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "French Indochina is only written and spoken in its full form.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Brad Wilk was a musician for Greta.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Stripes had Conrad Dunn featured in it.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "John Dolmayan is a musician.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Soyuz is a series of movies.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Danielle Cormack was born in May.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "TV Choice goes on sale once a month.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Sterile Cuckoo was directed by a Catholic.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Greek language is spoken by 13,248,388 people.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Noel Fisher appeared on Showtime.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Aarhus is located on the east coast of the Jutland peninsula.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Cadet Kelly was released in 2003.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Shane Black is incapable of being an American producer and actor.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kellyanne Conway has used the phrase \"alternative lies.\"", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Muscarinic acetylcholine receptors are in a place.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Garden State was barely at the Sundance Film Festival.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Earl Scruggs was born on January 6th, 1924 in a log cabin.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "A&E is on neither cable nor satellite.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "David Packouz was born in Seattle.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Martin Van Buren was exclusively unelected.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Ashley Cole was born December 20, 1980 in Sweden.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Efraim Diveroli was sentenced to federal jail.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Battle of France happened during World War II in the 1930s.", "gold": "Contradicted", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mickey Rourke appeared in The Expendables in 2005.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Season 2 of Fargo takes place after 1979.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Jos\u00e9 Ferrer won a marathon in 1947.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Wish Upon starred tomato.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Byron Howard won a Golden Globe for a scientific discovery.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Aleister Crowley died on a boat.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Miranda Otto is the sister of chef Gracie Otto.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Larry Wilmore is a person who performs comedy.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Southpaw's director is solely Quentin Tarantino.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "In the End has baseball in it.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Adventures of Pluto Nash was released in 2005.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The first inauguration of Bill Clinton made him the 42nd President of the United States.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Invasion literature was influential in Spain in shaping popular perceptions.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Valencia is in the mountains.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Terry Crews played on the Los Angeles Chargers.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Trollhunters was only created by Adam Sandler.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Endless River is an English rock band's album.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Wallace mentions people that never existed.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Lalla Ward has only ever been an author.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Camden, New Jersey is a village.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Gordon Ramsay has killed apprentices.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Faroe Islands have not been part of the Hereditary Kingdom of Norway since 1814.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Topman has outlets in six Scottish cities and towns.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "James VI and I was a ruler.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Osamu Tezuka practiced at least one art as a child.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Shane McMahon did not wrestle in the main event of multiple WWE pay per views.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Lizzy Caplan reviewed the television show Party Down", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Pelican Brief is based on a novel by an Italian plumber.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Gin is a spirit which derives its predominant flavour from motor oil.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Dakota Fanning was in film.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Brad Wilk died before being a drummer for Greta.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Harold Macmillan was a fish.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Vedam was written and directed solely by Stephen King.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Eric Church is an artist.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Harold Macmillan was a fish.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Riverdale's executive producer is someone other than Greg Berlanti.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Margaret Thatcher was active in politics.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Marvel vs. Capcom: Infinite incorporates combos.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Topman is a men's clothing seller.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "DJ Quik is vegan.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Matthias Corvinus had a daughter called the Bibliotheca Corviniana.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "St. Anger was released by Hillary Clinton.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "French Indochina was officially known as the Indochinese Federation after 1947.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Jeong Hyeong-don is solely Peruvian.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "John Deighton worked in California.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Regina King performed the role of Erika Murphy.", "gold": "Supported", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Thomas Jefferson is incapable of being a presidential scholar.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Larry the Cable Guy is the highest grossing television show in Canada.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Home for the Holidays stars a person whose death took place on June 6.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Tool has not produced albums.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Tim McGraw was in Friday Night Lights with Reese Witherspoon.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Pearl Jam sold many songs in the early 1990s.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Edmund H. North won an Emmy Award.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Topman is an independent company.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Danger UXB is a TV show.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "New Orleans Pelicans compete only in the American League.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Cry of the Owl has a completely original concept.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Rihanna is on Recovery.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kesha is an American.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kendall Jenner was on TV.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Camden, New Jersey is outside of Camden County, New Jersey.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Dark Tower is a series.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Marco Polo left a chronicle of his experience.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Exercise lowers resting heart rate.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Henry II of France was involved with the cause of a French war about religion between Protestants and Catholics.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "You Belong with Me is a fan club.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Regina King is an actress.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Seohyun is 45 years old.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Humphrey Bogart does acting.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kesha is an American living in Atlanta, Georgia.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Drake Bell released an album.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Australia regulates franchising.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Miranda Otto is the son of Barry Otto.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Michigan is the least populous of the 50 United States.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Johanna Braddy acted in a TV series on Fox.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "James VI and I began the Plantation of Ulster.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Sheryl Lee repeated her role of Laura Palmer.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mud has Tom Cruise in its cast.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Home for the Holidays stars an American director.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Stripes featured only John Denver in a role.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The New York City Landmarks Preservation Commission includes a United States historian.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "EA Black Box was based in a box.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Roland Emmerich is a collector.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Liverpool is in the United States.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Fortunes of War stars the actor Kenneth Branagh.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Kuching is a city in Singapore.", "gold": "Contradicted", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Phillip Glass has written symphonies.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Britt Robertson is an entertainer.", "gold": "Supported", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Meteora is Linkin Park's second studio album.", "gold": "Unsupported", "pred": "Supported", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "The Closer's final season was its ninth season.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Beaverton, Oregon's city center is seven miles west of downtown Washington.", "gold": "Unsupported", "pred": "Contradicted", "evidence_source": "copenlu candidate sentences (NEI)"}
+{"claim": "Gal Gadot was ranked behind Esti Ginzburg for highest earning actress/models in Israel.", "gold": "Contradicted", "pred": "Supported", "evidence_source": "copenlu gold sentences"}
+{"claim": "Mike Huckabee is a folk religious figure with no official status.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "The Hanford Site is unable to host the Pacific Northwest National Laboratory.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Knocked Up was released worldwide in 2003.", "gold": "Contradicted", "pred": "Contradicted", "evidence_source": "copenlu gold sentences"}
+{"claim": "Margaret Thatcher was the most senior politician within the Conservative Party in the UK in 1975.", "gold": "Supported", "pred": "Unsupported", "evidence_source": "copenlu gold sentences"}
+{"claim": "The current President of Lockheed Martin was born in Brazil.", "gold": "Unsupported", "pred": "Unsupported", "evidence_source": "copenlu candidate sentences (NEI)"}
