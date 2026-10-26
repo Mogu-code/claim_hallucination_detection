@@ -151,9 +151,21 @@ pip install -r requirements.txt
 # Run unit and smoke test suite (19 tests)
 python -m pytest tests/ -v
 
-# Run the end-to-end pipeline demonstration
+# Run the interactive terminal demonstration interface
+python demo.py
+
+# Run specific demonstrator presets directly
+python demo.py --preset 1   # Preset 1: Mostly factual response
+python demo.py --preset 2   # Preset 2: Response containing factual errors
+python demo.py --preset 3   # Preset 3: Response containing an unverifiable claim
+
+# Verify custom input paragraph directly via CLI
+python demo.py --text "Marie Curie was born in Paris in 1867. She won three Nobel Prizes."
+
+# Run the programmatic pipeline demo
 python -m src.pipeline
 
 # Reproduce FEVER tuning and ablation experiments
 python experiments/run_fever_experiments.py
 ```
+
