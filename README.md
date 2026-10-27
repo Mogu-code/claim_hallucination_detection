@@ -39,12 +39,6 @@ Supported / Contradicted / Unsupported → Hallucination Score
 └── requirements.txt
 ```
 
-## Status
-
-- 🟢 **DA1** — Literature survey (15 papers), problem statement, architecture design (complete)
-- 🟢 **DA2** — Implementation, FEVER threshold tuning & ablation experiments, HaluEval benchmark (complete)
-- 🟢 **DA3** — IEEE-format research paper, patent draft, and adaptive scalar reasoning module (complete)
-
 ## Datasets
 
 - [FEVER](https://fever.ai/) (`copenlu/fever_gold_evidence`) — Primary benchmark for claim verification.
