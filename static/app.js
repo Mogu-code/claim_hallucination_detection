@@ -4,6 +4,7 @@
  */
 
 let PRESETS = {};
+let LAST_RESULT = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   initSystemHealth();
@@ -108,6 +109,7 @@ async function handleVerification() {
     }
 
     const data = await response.json();
+    LAST_RESULT = data;
     renderResults(data);
     resultsArea.style.display = "block";
     resultsArea.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -211,16 +213,20 @@ function renderClaimCards(claims) {
         </div>
       </div>
 
-      <!-- Expandable Audit Trace (Milestone 6) -->
+      <!-- Expandable Audit Trace Receipt (Milestone 6) -->
       <details class="audit-details">
-        <summary>View Verification Audit Trace Receipt</summary>
+        <summary>🔍 View Factual Audit Trace Receipt</summary>
         <div class="audit-content">
           <div><strong>Claim ID:</strong> c_${idx + 1}</div>
-          <div><strong>Inference Engine:</strong> ${item.backend}</div>
-          <div><strong>Entailment Threshold:</strong> &tau;<sub>ent</sub> &ge; 0.55 &rarr; ${item.entailment >= 0.55 ? "MET" : "NOT MET"} (${item.entailment})</div>
-          <div><strong>Contradiction Threshold:</strong> &tau;<sub>contra</sub> &ge; 0.30 &rarr; ${item.contradiction >= 0.30 ? "TRIGGERED" : "NOT TRIGGERED"} (${item.contradiction})</div>
-          <div><strong>Gate Similarity Bound:</strong> &tau;<sub>sim</sub> &ge; 0.05 &rarr; ${item.similarity >= 0.05 ? "MET" : "NOT MET"} (${item.similarity})</div>
-          <div><strong>Decision Rule:</strong> ${getDecisionRationale(item)}</div>
+          <div><strong>Premise / Evidence:</strong> "${escapeHtml(item.evidence)}"</div>
+          <div><strong>Hypothesis / Claim:</strong> "${escapeHtml(item.claim)}"</div>
+          <div><strong>Inference Backend:</strong> ${escapeHtml(item.backend)}</div>
+          <div><strong>Entailment Check:</strong> &tau;<sub>ent</sub> &ge; 0.55 &rarr; ${item.entailment >= 0.55 ? "MET" : "NOT MET"} (Score: ${item.entailment})</div>
+          <div><strong>Contradiction Check:</strong> &tau;<sub>contra</sub> &ge; 0.30 &rarr; ${item.contradiction >= 0.30 ? "TRIGGERED" : "NOT TRIGGERED"} (Score: ${item.contradiction})</div>
+          <div><strong>Retrieval Gate:</strong> &tau;<sub>sim</sub> &ge; 0.05 &rarr; ${item.similarity >= 0.05 ? "PASS" : "FAIL"} (Score: ${item.similarity})</div>
+          <div style="margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #cbd5e1;">
+            <strong>Decision Rationale:</strong> ${getDecisionRationale(item)}
+          </div>
         </div>
       </details>
     `;
@@ -235,7 +241,7 @@ function getDecisionRationale(item) {
   } else if (item.label.toLowerCase() === "supported") {
     return "Entailment threshold satisfied (P(ent) >= 0.55) and similarity gate bound met (sim >= 0.05).";
   } else {
-    return "Evidence neither entailed nor contradicted above threshold limits. Classified as Unsupported / NEI.";
+    return "Evidence neither entailed nor contradicted above calibrated bounds. Classified as Unsupported / NEI.";
   }
 }
 
