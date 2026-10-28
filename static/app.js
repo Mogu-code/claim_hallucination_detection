@@ -122,7 +122,128 @@ async function handleVerification() {
   }
 }
 
-// Stubs for rendering functions to be fleshed out in Milestones 5 and 6
+// 5. Render results: cards, probability bars, and badges
 function renderResults(data) {
-  // Will be implemented in Milestones 5, 6, and 7
+  renderSummaryBar(data);
+  renderClaimCards(data.claims);
+}
+
+function renderClaimCards(claims) {
+  const container = document.getElementById("claims-container");
+  container.innerHTML = "";
+
+  if (!claims || claims.length === 0) {
+    container.innerHTML = "<p class='text-muted'>No claims could be extracted.</p>";
+    return;
+  }
+
+  claims.forEach((item, idx) => {
+    const card = document.createElement("div");
+    card.className = "claim-card";
+
+    // Verdict Badge styling
+    let badgeClass = "badge-supported";
+    let badgeText = "Supported";
+    let icon = "✓";
+
+    if (item.label.toLowerCase() === "contradicted") {
+      badgeClass = "badge-contradicted";
+      badgeText = "Contradicted";
+      icon = "✗";
+    } else if (item.label.toLowerCase() === "unsupported") {
+      badgeClass = "badge-unsupported";
+      badgeText = "Unsupported";
+      icon = "?";
+    }
+
+    // Probability percentages
+    const entPct = (item.entailment * 100).toFixed(1);
+    const contraPct = (item.contradiction * 100).toFixed(1);
+    const neuPct = (item.neutral * 100).toFixed(1);
+    const simPct = (item.similarity * 100).toFixed(1);
+
+    card.innerHTML = `
+      <div class="claim-card-header">
+        <div>
+          <div class="claim-index">Atomic Claim ${idx + 1}</div>
+          <div class="claim-text">"${escapeHtml(item.claim)}"</div>
+        </div>
+        <span class="badge-verdict ${badgeClass}">${icon} ${badgeText}</span>
+      </div>
+
+      <div class="evidence-box">
+        <div class="evidence-header">
+          <span>Top Retrieved Evidence</span>
+          <span class="evidence-sim">Cosine Similarity: ${simPct}%</span>
+        </div>
+        <div class="evidence-quote">"${escapeHtml(item.evidence)}"</div>
+      </div>
+
+      <div class="nli-bars-row">
+        <div class="nli-bar-group">
+          <div class="nli-bar-label">
+            <span>Entailment P(ent)</span>
+            <span>${entPct}%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-fill-ent" style="width: ${entPct}%;"></div>
+          </div>
+        </div>
+
+        <div class="nli-bar-group">
+          <div class="nli-bar-label">
+            <span>Contradiction P(contra)</span>
+            <span>${contraPct}%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-fill-contra" style="width: ${contraPct}%;"></div>
+          </div>
+        </div>
+
+        <div class="nli-bar-group">
+          <div class="nli-bar-label">
+            <span>Neutral P(neu)</span>
+            <span>${neuPct}%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-fill-neu" style="width: ${neuPct}%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Audit Trace (Milestone 6) -->
+      <details class="audit-details">
+        <summary>View Verification Audit Trace Receipt</summary>
+        <div class="audit-content">
+          <div><strong>Claim ID:</strong> c_${idx + 1}</div>
+          <div><strong>Inference Engine:</strong> ${item.backend}</div>
+          <div><strong>Entailment Threshold:</strong> &tau;<sub>ent</sub> &ge; 0.55 &rarr; ${item.entailment >= 0.55 ? "MET" : "NOT MET"} (${item.entailment})</div>
+          <div><strong>Contradiction Threshold:</strong> &tau;<sub>contra</sub> &ge; 0.30 &rarr; ${item.contradiction >= 0.30 ? "TRIGGERED" : "NOT TRIGGERED"} (${item.contradiction})</div>
+          <div><strong>Gate Similarity Bound:</strong> &tau;<sub>sim</sub> &ge; 0.05 &rarr; ${item.similarity >= 0.05 ? "MET" : "NOT MET"} (${item.similarity})</div>
+          <div><strong>Decision Rule:</strong> ${getDecisionRationale(item)}</div>
+        </div>
+      </details>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function getDecisionRationale(item) {
+  if (item.label.toLowerCase() === "contradicted") {
+    return "Contradiction threshold reached (P(contra) >= 0.30). Immediate refutation override applied.";
+  } else if (item.label.toLowerCase() === "supported") {
+    return "Entailment threshold satisfied (P(ent) >= 0.55) and similarity gate bound met (sim >= 0.05).";
+  } else {
+    return "Evidence neither entailed nor contradicted above threshold limits. Classified as Unsupported / NEI.";
+  }
+}
+
+function renderSummaryBar(data) {
+  // Implemented in Milestone 7
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
