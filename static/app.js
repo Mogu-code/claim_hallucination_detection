@@ -34,7 +34,6 @@ async function initPresets() {
     const res = await fetch("/api/presets");
     if (res.ok) {
       PRESETS = await res.json();
-      // Load default preset (factual) into the textarea
       selectPreset("factual");
     }
   } catch (err) {
@@ -46,23 +45,19 @@ function selectPreset(key) {
   const preset = PRESETS[key];
   if (!preset) return;
 
-  // Update active button state
   document.querySelectorAll(".btn-preset").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.preset === key);
   });
 
-  // Update description box
   document.getElementById("preset-info-title").textContent = preset.title;
   document.getElementById("preset-info-desc").textContent = `${preset.description} (Expected: ${preset.expected})`;
 
-  // Populate textarea
   const textarea = document.getElementById("input-text");
   textarea.value = preset.text;
 }
 
 // 3. Setup UI event listeners
 function setupEventListeners() {
-  // Preset button clicks
   const presetButtons = document.querySelectorAll(".btn-preset");
   presetButtons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -70,14 +65,64 @@ function setupEventListeners() {
     });
   });
 
-  // Verification button click
   const verifyBtn = document.getElementById("btn-verify");
   if (verifyBtn) {
     verifyBtn.addEventListener("click", handleVerification);
   }
 }
 
-// Stub for handleVerification to be implemented in Milestone 4
+// 4. API verification pipeline caller
 async function handleVerification() {
-  // Handled in next milestone
+  const textInput = document.getElementById("input-text");
+  const text = textInput ? textInput.value.trim() : "";
+  const useScalar = document.getElementById("toggle-scalar").checked;
+
+  if (!text) {
+    alert("Please enter a paragraph or select a preset example.");
+    return;
+  }
+
+  const verifyBtn = document.getElementById("btn-verify");
+  const btnText = verifyBtn.querySelector(".btn-text");
+  const spinner = document.getElementById("btn-spinner");
+  const resultsArea = document.getElementById("results-area");
+
+  // Set loading state
+  verifyBtn.disabled = true;
+  btnText.textContent = "Verifying Claims...";
+  spinner.style.display = "inline-block";
+
+  try {
+    const response = await fetch("/api/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text: text,
+        use_scalar: useScalar
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      throw new Error(errData.error || "Verification pipeline failed.");
+    }
+
+    const data = await response.json();
+    renderResults(data);
+    resultsArea.style.display = "block";
+    resultsArea.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  } catch (err) {
+    console.error("Verification error:", err);
+    alert(`Error running verification pipeline: ${err.message}`);
+  } finally {
+    verifyBtn.disabled = false;
+    btnText.textContent = "Run Verification Pipeline";
+    spinner.style.display = "none";
+  }
+}
+
+// Stubs for rendering functions to be fleshed out in Milestones 5 and 6
+function renderResults(data) {
+  // Will be implemented in Milestones 5, 6, and 7
 }
