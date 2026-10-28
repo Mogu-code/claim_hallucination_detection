@@ -313,7 +313,8 @@ class ClaimVerifier:
                 elif ev_years:
                     for cy in claim_years:
                         cy_int = int(cy)
-                        if any(abs(cy_int - int(ey)) > 40 for ey in ev_years):
+                        # Birth year cannot be strictly after historical events
+                        if any(cy_int > int(ey) for ey in ev_years):
                             return {"entailment": 0.05, "contradiction": 0.90, "neutral": 0.05}
 
             if any(w in claim_toks for w in ["built", "completed", "constructed", "founded"]):
