@@ -48,3 +48,7 @@ Thumbs.db
 
 # Local developer scratch directory
 scratch/
+
+# Office lock files
+~$*.docx
+~$*.doc

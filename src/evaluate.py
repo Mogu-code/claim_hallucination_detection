@@ -1,4 +1,42 @@
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+try:
+    from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+except ImportError:
+    def accuracy_score(y_true, y_pred):
+        if not y_true:
+            return 0.0
+        return sum(1 for yt, yp in zip(y_true, y_pred) if yt == yp) / len(y_true)
+
+    def precision_recall_fscore_support(y_true, y_pred, labels=None, average='macro', zero_division=0):
+        if labels is None:
+            labels = sorted(list(set(y_true) | set(y_pred)))
+        precisions, recalls, f1s = [], [], []
+        for lbl in labels:
+            tp = sum(1 for yt, yp in zip(y_true, y_pred) if yt == lbl and yp == lbl)
+            fp = sum(1 for yt, yp in zip(y_true, y_pred) if yt != lbl and yp == lbl)
+            fn = sum(1 for yt, yp in zip(y_true, y_pred) if yt == lbl and yp != lbl)
+            p = tp / (tp + fp) if (tp + fp) > 0 else zero_division
+            r = tp / (tp + fn) if (tp + fn) > 0 else zero_division
+            f = (2 * p * r) / (p + r) if (p + r) > 0 else zero_division
+            precisions.append(p)
+            recalls.append(r)
+            f1s.append(f)
+        if average == 'macro':
+            macro_p = sum(precisions) / len(precisions) if precisions else 0.0
+            macro_r = sum(recalls) / len(recalls) if recalls else 0.0
+            macro_f = sum(f1s) / len(f1s) if f1s else 0.0
+            return macro_p, macro_r, macro_f, None
+        return precisions, recalls, f1s, None
+
+    def confusion_matrix(y_true, y_pred, labels=None):
+        if labels is None:
+            labels = sorted(list(set(y_true) | set(y_pred)))
+        cm = [[0] * len(labels) for _ in labels]
+        label_to_idx = {lbl: i for i, lbl in enumerate(labels)}
+        for yt, yp in zip(y_true, y_pred):
+            if yt in label_to_idx and yp in label_to_idx:
+                cm[label_to_idx[yt]][label_to_idx[yp]] += 1
+        return cm
+
 from src.nli_scorer import ClaimLabel, ClaimVerifier
 
 def recall_at_k(retrieved: list[str], relevant: set[str], k: int) -> float:
@@ -18,7 +56,9 @@ def _classification_metrics(y_true, y_pred, labels):
     per_p, per_r, per_f1, _ = precision_recall_fscore_support(y_true_clean, y_pred_clean, labels=labels_clean, average=None, zero_division=0)
     
     try:
-        cm = confusion_matrix(y_true_clean, y_pred_clean, labels=labels_clean).tolist()
+        cm = confusion_matrix(y_true_clean, y_pred_clean, labels=labels_clean)
+        if hasattr(cm, "tolist"):
+            cm = cm.tolist()
     except Exception:
         cm = []
     
@@ -92,4 +132,3 @@ def evaluate_fever_verification(examples: list[dict], verifier: ClaimVerifier,
     metrics["n_examples"] = len(examples)
     metrics["predictions"] = predictions
     return metrics
-

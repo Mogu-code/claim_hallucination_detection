@@ -5,7 +5,7 @@ This interface provides a direct, transparent demonstration of the existing
 end-to-end pipeline:
   1. Decomposes an input paragraph into atomic factual claims.
   2. Retrieves relevant evidence passages from a factual reference corpus.
-  3. Evaluates entailment, contradiction, and neutral probabilities using DeBERTa-v3.
+  3. Evaluates entailment, contradiction, and neutral probabilities using DeBERTa-v3 or Fast Fallback.
   4. Applies calibrated threshold fusion to assign final verification labels.
   5. Computes response-level hallucination rate.
 
@@ -101,7 +101,11 @@ DEFAULT_EVIDENCE_CORPUS = [
     "The Apollo 11 mission landed the first humans on the Moon on July 20, 1969.",
     "Neil Armstrong was an American astronaut who became the first person to walk on the Moon in 1969.",
     "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France, completed in 1889.",
+    "Alexandre Gustave Eiffel was a French civil engineer and architect best known for the Eiffel Tower built for the 1889 Universal Exposition in Paris.",
     "Albert Einstein was a German-born theoretical physicist who developed the theory of relativity and won the 1921 Nobel Prize in Physics.",
+    "Albert Einstein was born on 14 March 1879 in Ulm, Kingdom of Wurttemberg, German Empire.",
+    "In 1905, often referred to as his annus mirabilis, Albert Einstein published four groundbreaking papers.",
+    "Barack Obama was born in Honolulu, Hawaii on August 4, 1961.",
     "The Pacific Ocean is the largest and deepest of Earth's five oceanic divisions.",
 ]
 
@@ -138,7 +142,7 @@ def load_demonstration_corpus(custom_file: str | None = None) -> list[str]:
     return passages
 
 
-def initialize_demo_components(backend: str = "dense", top_k: int = 1, corpus_file: str | None = None):
+def initialize_demo_components(backend: str = "dense", top_k: int = 3, corpus_file: str | None = None, force_fallback: bool = False):
     """
     Initialize the pipeline components.
     """
@@ -156,7 +160,7 @@ def initialize_demo_components(backend: str = "dense", top_k: int = 1, corpus_fi
 
     print(f"{COLOR_BOLD}[2/2] Loading DeBERTa-v3 NLI Claim Verifier...{COLOR_RESET}")
     try:
-        verifier = ClaimVerifier()
+        verifier = ClaimVerifier(force_fallback=force_fallback)
         print(f"      -> Active verifier: {COLOR_CYAN}{verifier.active_backend}{COLOR_RESET}")
         print(f"      -> Calibrated thresholds: Entailment >= {verifier.config.entailment_threshold}, "
               f"Contradiction >= {verifier.config.contradiction_threshold}, "
@@ -291,10 +295,11 @@ def main():
     parser = argparse.ArgumentParser(description="Demonstration CLI for Claim-Level Hallucination Detection")
     parser.add_argument("--text", type=str, default=None, help="Direct input text paragraph to verify")
     parser.add_argument("--preset", type=int, choices=[1, 2, 3, 4], default=None, help="Run a specific preset example (1, 2, 3, or 4)")
-    parser.add_argument("--top-k", type=int, default=1, help="Top-k evidence passages to retrieve per claim (default: 1)")
+    parser.add_argument("--top-k", type=int, default=3, help="Top-k evidence passages to retrieve per claim (default: 3)")
     parser.add_argument("--retriever", type=str, choices=["dense", "lexical"], default="dense", help="Retrieval backend (default: dense)")
     parser.add_argument("--corpus-file", type=str, default=None, help="Optional text file of custom evidence passages (one per line)")
     parser.add_argument("--web", action="store_true", help="Launch the browser-based Web UI instead of CLI")
+    parser.add_argument("--fast", action="store_true", help="Force instant / fast lexical fallback mode")
 
     args = parser.parse_args()
 
@@ -309,7 +314,8 @@ def main():
         index, verifier, config = initialize_demo_components(
             backend=args.retriever,
             top_k=args.top_k,
-            corpus_file=args.corpus_file
+            corpus_file=args.corpus_file,
+            force_fallback=args.fast
         )
     except Exception as e:
         print(f"\n[Fatal Error during initialization]: {e}", file=sys.stderr)

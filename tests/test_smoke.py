@@ -1,16 +1,57 @@
 """
 Basic tests covering dataset loading, claim decomposition, retrieval, NLI
 output, final label mapping, and metric calculation, plus one full
-end-to-end smoke test.
+end-to-end smoke test and acceptance tests.
 
-Run with:  PYTHONPATH=. python3 -m pytest tests/ -v
+Run with:  python -m pytest tests/ -v
+       or: python tests/test_smoke.py
 """
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "data", "loaders"))
+import builtins
 
-import pytest
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "data", "loaders"))
+
+try:
+    import pytest
+except ImportError:
+    class _MockPytest:
+        @staticmethod
+        def fixture(scope="session"):
+            def decorator(func):
+                return func
+            return decorator
+
+        @staticmethod
+        def raises(expected_exception):
+            class _RaisesContext:
+                def __enter__(self):
+                    return self
+                def __exit__(self, exc_type, exc_val, exc_tb):
+                    if exc_type is None:
+                        raise AssertionError(f"Expected exception {expected_exception.__name__} not raised")
+                    return issubclass(exc_type, expected_exception)
+            return _RaisesContext()
+
+        @staticmethod
+        def approx(expected, abs=0.01, rel=None):
+            tolerance = abs
+            class _Approx:
+                def __init__(self, val, tol):
+                    self.val = val
+                    self.tol = tol
+                def __eq__(self, other):
+                    return builtins.abs(other - self.val) <= self.tol
+                def __repr__(self):
+                    return f"approx({self.val} ± {self.tol})"
+            return _Approx(expected, tolerance)
+
+    pytest = _MockPytest()
 
 from src.claim_decomposition import decompose_into_claims
 from src.evidence_retrieval import EvidenceIndex
@@ -54,7 +95,7 @@ def test_evidence_retrieval_returns_ranked_results():
         "Marie Curie was born in Warsaw, Poland in 1867.",
         "The Eiffel Tower was completed in 1889 in Paris.",
     ]
-    index = EvidenceIndex(backend="lexical")  # force BM25 for a deterministic, network-free test
+    index = EvidenceIndex(backend="lexical", enable_wiki_fallback=False)
     index.build_index(docs)
     results = index.retrieve_evidence("When was Marie Curie born?", top_k=1)
     assert len(results) == 1
@@ -62,7 +103,7 @@ def test_evidence_retrieval_returns_ranked_results():
 
 
 def test_evidence_retrieval_empty_index_raises():
-    index = EvidenceIndex(backend="lexical")
+    index = EvidenceIndex(backend="lexical", enable_wiki_fallback=False)
     with pytest.raises(ValueError):
         index.build_index([])
 
@@ -100,7 +141,7 @@ def test_classification_metrics_perfect_prediction():
     y_pred = [ClaimLabel.SUPPORTED, ClaimLabel.CONTRADICTED]
     metrics = _classification_metrics(y_true, y_pred, labels=list(ClaimLabel))
     assert metrics["accuracy"] == 1.0
-    assert metrics["macro_f1"] == pytest.approx(2 / 3, abs=0.01)  # UNSUPPORTED class has 0 support
+    assert metrics["macro_f1"] == pytest.approx(2 / 3, abs=0.01)
 
 
 def test_fever_style_evaluation_runs(verifier):
@@ -115,14 +156,11 @@ def test_fever_style_evaluation_runs(verifier):
 
 
 def test_full_pipeline_end_to_end(verifier):
-    """The core requirement from the task: one response through the whole
-    pipeline should actually execute and return a coherent result, not
-    just raise NotImplementedError."""
     docs = [
         "Marie Curie was born in Warsaw, Poland in 1867.",
         "Marie Curie won the Nobel Prize in Physics in 1903.",
     ]
-    index = EvidenceIndex(backend="lexical")
+    index = EvidenceIndex(backend="lexical", enable_wiki_fallback=False)
     index.build_index(docs)
 
     response = "Marie Curie was born in Warsaw. She won a Nobel Prize."
@@ -139,7 +177,7 @@ def test_full_pipeline_end_to_end(verifier):
 
 def test_ablation_no_decomposition_treats_response_as_single_claim(verifier):
     docs = ["Marie Curie was born in Warsaw, Poland in 1867."]
-    index = EvidenceIndex(backend="lexical")
+    index = EvidenceIndex(backend="lexical", enable_wiki_fallback=False)
     index.build_index(docs)
 
     response = "Marie Curie was born in Warsaw. She won a Nobel Prize."
@@ -149,7 +187,7 @@ def test_ablation_no_decomposition_treats_response_as_single_claim(verifier):
 
 def test_ablation_no_retrieval_gives_no_evidence(verifier):
     docs = ["Marie Curie was born in Warsaw, Poland in 1867."]
-    index = EvidenceIndex(backend="lexical")
+    index = EvidenceIndex(backend="lexical", enable_wiki_fallback=False)
     index.build_index(docs)
 
     result = run_pipeline("Marie Curie was born in Warsaw.", index, verifier, retrieve=False)
@@ -159,17 +197,14 @@ def test_ablation_no_retrieval_gives_no_evidence(verifier):
 
 def test_scalar_verifier_subsumption_function():
     from src.scalar_verifier import check_scalar_subsumption
-    # Explicit numerical unit noun comparison: 20 subsumes 5
     res = check_scalar_subsumption("Yale has 5 living billionaires.", "Yale has 20 living billionaires.")
     assert res == ("entailment", 0.85)
 
-    # Years without unit nouns must return None (no year rule)
     assert check_scalar_subsumption("Marie Curie was born in 1867.", "The Eiffel Tower was completed in 1889.") is None
     assert check_scalar_subsumption("Born in 1867.", "Born in 1867.") is None
 
 
 def test_paris_vs_warsaw_same_year(verifier):
-    # Same year (1867) must remain CONTRADICTED; scalar verifier must never override CONTRADICTED
     c = "Marie Curie was born in Paris in 1867."
     e = ["Marie Curie was born in Warsaw, Poland in 1867."]
     assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
@@ -177,7 +212,6 @@ def test_paris_vs_warsaw_same_year(verifier):
 
 
 def test_one_vs_two_nobel_prizes(verifier):
-    # "one" vs "two Nobel Prizes": NLI predicts contradiction; scalar verifier must never override CONTRADICTED
     c = "Marie Curie won one Nobel Prize."
     e = ["Marie Curie won two Nobel Prizes in Physics and Chemistry."]
     assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
@@ -185,7 +219,6 @@ def test_one_vs_two_nobel_prizes(verifier):
 
 
 def test_kenya_vs_honolulu_same_year(verifier):
-    # Same year (1961) must remain CONTRADICTED; scalar verifier must never override CONTRADICTED
     c = "Barack Obama was born in Kenya in 1961."
     e = ["Barack Obama was born in Honolulu, Hawaii in 1961."]
     assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.CONTRADICTED
@@ -193,10 +226,80 @@ def test_kenya_vs_honolulu_same_year(verifier):
 
 
 def test_irrelevant_passage_different_year(verifier):
-    # Different year in irrelevant passage must be UNSUPPORTED, not CONTRADICTED
     c = "Marie Curie was born in 1867."
     e = ["The Eiffel Tower was completed in 1889 in Paris."]
     assert verifier.verify_claim(c, e, use_scalar=False).label == ClaimLabel.UNSUPPORTED
     assert verifier.verify_claim(c, e, use_scalar=True).label == ClaimLabel.UNSUPPORTED
 
 
+# Section 4 Benchmark Acceptance Suite
+def test_marie_curie_nobel_physics_1903(verifier):
+    c = "Marie Curie was awarded the Nobel Prize in Physics in 1903."
+    e = ["Marie Curie won the Nobel Prize in Physics in 1903 and the Nobel Prize in Chemistry in 1911."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.SUPPORTED
+
+
+def test_einstein_annus_mirabilis_1905(verifier):
+    c = "Albert Einstein published four groundbreaking papers during his annus mirabilis in 1905."
+    e = ["In 1905, often referred to as his annus mirabilis, Albert Einstein published four groundbreaking papers."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.SUPPORTED
+
+
+def test_eiffel_tower_tokyo_contradicted(verifier):
+    c = "The Eiffel Tower is located in Tokyo."
+    e = ["The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France, completed in 1889."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.CONTRADICTED
+
+
+def test_marie_curie_actress_contradicted(verifier):
+    c = "Marie Curie was an actress."
+    e = ["Marie Curie was born in Warsaw, Poland in 1867. She won the Nobel Prize in Physics in 1903 and the Nobel Prize in Chemistry in 1911."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.CONTRADICTED
+
+
+def test_einstein_born_1995_contradicted(verifier):
+    c = "Albert Einstein was born in 1995."
+    e = ["Albert Einstein was a German-born theoretical physicist who developed the theory of relativity and won the 1921 Nobel Prize in Physics. Born in 1879."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.CONTRADICTED
+
+
+def test_einstein_figure_skater_unsupported(verifier):
+    c = "Albert Einstein was a world champion figure skater in Switzerland."
+    e = ["Albert Einstein was a German-born theoretical physicist who developed the theory of relativity and won the 1921 Nobel Prize in Physics."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.UNSUPPORTED
+
+
+def test_gustave_eiffel_skateboard_unsupported(verifier):
+    c = "Gustave Eiffel invented the modern electric skateboard in 1889."
+    e = ["The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France, completed in 1889."]
+    assert verifier.verify_claim(c, e).label == ClaimLabel.UNSUPPORTED
+
+
+if __name__ == "__main__":
+    import inspect
+    v = ClaimVerifier()
+    passed = 0
+    failed = 0
+    current_module = sys.modules[__name__]
+    test_funcs = [
+        obj for name, obj in inspect.getmembers(current_module)
+        if inspect.isfunction(obj) and name.startswith("test_")
+    ]
+    print(f"\nRunning {len(test_funcs)} verification tests...")
+    print("=" * 70)
+    for func in test_funcs:
+        sig = inspect.signature(func)
+        try:
+            if "verifier" in sig.parameters:
+                func(v)
+            else:
+                func()
+            print(f"  [PASS] {func.__name__}")
+            passed += 1
+        except Exception as ex:
+            print(f"  [FAIL] {func.__name__}: {ex}")
+            failed += 1
+    print("=" * 70)
+    print(f"Results: {passed} passed, {failed} failed out of {len(test_funcs)} tests.\n")
+    if failed > 0:
+        sys.exit(1)
