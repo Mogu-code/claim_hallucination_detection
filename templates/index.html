@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence-Aware Claim-Level Hallucination Detector | VIT NLP</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="logo-icon">🔬</div>
+      <div>
+        <h1 class="nav-title">Claim-Level Hallucination Detector</h1>
+        <p class="nav-subtitle">Evidence-Aware Natural Language Inference &amp; Dynamic Threshold Fusion</p>
+      </div>
+    </div>
+    <div class="nav-meta">
+      <span class="badge-course">BCSE306L — NLP</span>
+      <span class="badge-vit">VIT Chennai</span>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero / Architecture Overview -->
+    <section class="hero-card">
+      <div class="hero-content">
+        <h2>Fine-Grained Fact Verification for LLM Text</h2>
+        <p>
+          Unlike monolithic detectors that score entire paragraphs at once, our system decomposes text into 
+          <strong>atomic factual claims</strong>, retrieves real encyclopedic evidence, and applies calibrated 
+          <strong>DeBERTa-v3 cross-encoder entailment</strong> to audit each statement with high transparency.
+        </p>
+      </div>
+      <div class="hero-stats" id="system-status">
+        <div class="stat-pill">
+          <span class="stat-label">Retriever</span>
+          <span class="stat-val" id="stat-retriever">Loading...</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">NLI Verifier</span>
+          <span class="stat-val" id="stat-verifier">Loading...</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Corpus Size</span>
+          <span class="stat-val" id="stat-corpus">Loading...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Input & Preset Controller -->
+    <section class="card input-section">
+      <div class="section-header">
+        <h3>1. Select Evaluation Preset or Input Custom Generation</h3>
+      </div>
+
+      <!-- Preset Buttons -->
+      <div class="preset-group" id="preset-buttons">
+        <button type="button" class="btn-preset active" data-preset="factual">
+          <span class="preset-dot dot-green"></span>
+          Preset 1: Factual
+        </button>
+        <button type="button" class="btn-preset" data-preset="contradiction">
+          <span class="preset-dot dot-red"></span>
+          Preset 2: Factual Error
+        </button>
+        <button type="button" class="btn-preset" data-preset="unverifiable">
+          <span class="preset-dot dot-yellow"></span>
+          Preset 3: Unverifiable
+        </button>
+        <button type="button" class="btn-preset" data-preset="composite">
+          <span class="preset-dot dot-purple"></span>
+          Preset 4: Mixed Response
+        </button>
+      </div>
+
+      <div class="preset-info-box" id="preset-info">
+        <span class="preset-info-title" id="preset-info-title">Preset 1: Factual Statements</span>
+        <span class="preset-info-desc" id="preset-info-desc">Historical facts grounded in encyclopedic evidence.</span>
+      </div>
+
+      <!-- Textarea Input -->
+      <div class="input-wrapper">
+        <textarea id="input-text" rows="4" placeholder="Enter LLM-generated text or pick a preset above..."></textarea>
+      </div>
+
+      <!-- Controls & Submit -->
+      <div class="controls-row">
+        <label class="toggle-control">
+          <input type="checkbox" id="toggle-scalar" checked>
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Enable Adaptive Scalar &amp; Numerical Reasoning</span>
+        </label>
+
+        <button type="button" class="btn-primary" id="btn-verify">
+          <span class="btn-text">Run Verification Pipeline</span>
+          <span class="spinner" id="btn-spinner" style="display:none;"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="results-area" style="display:none;">
+      
+      <!-- Summary Dashboard Bar -->
+      <div class="card summary-card">
+        <div class="summary-left">
+          <div class="score-circle" id="score-circle">
+            <span class="score-num" id="score-rate">0%</span>
+            <span class="score-sub">Hallucination</span>
+          </div>
+          <div class="summary-text">
+            <h3 id="summary-headline">Response Verification Summary</h3>
+            <p id="summary-detail">Decomposed into 2 atomic propositions.</p>
+            <div class="latency-tag">⚡ Latency: <span id="summary-latency">0</span> ms</div>
+          </div>
+        </div>
+
+        <div class="summary-breakdown">
+          <div class="count-box count-supp">
+            <span class="count-number" id="count-supported">0</span>
+            <span class="count-title">Supported</span>
+          </div>
+          <div class="count-box count-contra">
+            <span class="count-number" id="count-contradicted">0</span>
+            <span class="count-title">Contradicted</span>
+          </div>
+          <div class="count-box count-unsupp">
+            <span class="count-number" id="count-unsupported">0</span>
+            <span class="count-title">Unsupported</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Claim Cards Container -->
+      <div class="section-header" style="margin-top: 1.5rem;">
+        <h3>2. Claim-Level Verification &amp; Evidence Audit</h3>
+      </div>
+      <div id="claims-container" class="claims-list"></div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>
+      Course Project for <strong>BCSE306L — Natural Language Processing</strong>, Fall 2026–27 | 
+      School of Computer Science &amp; Engineering, <strong>VIT Chennai</strong>
+    </p>
+    <p class="footer-team">
+      Team: <strong>Mokshdaa Gupta</strong> (24BCE5095) &amp; <strong>Riya Mhalgi</strong> (24BCE1766) &amp; <strong>Anirudh Pisharady</strong> (24BCE1805)
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
