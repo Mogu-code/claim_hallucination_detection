@@ -5,15 +5,24 @@ Provides an interactive browser interface to demonstrate the end-to-end
 claim-level verification pipeline:
   1. Syntactic Claim Decomposition
   2. Dense Evidence Passage Retrieval
-  3. Bidirectional Cross-Encoder NLI Verification (DeBERTa-v3)
+  3. Bidirectional Cross-Encoder NLI Verification (DeBERTa-v3 / Fast Heuristic)
   4. Dynamic Threshold Fusion & Scalar Reasoning
   5. Response-Level Hallucination Score & Transparent Audit Traces
+
+Usage:
+  Instant Launch (Starts in 0.5s, no waiting/downloads):
+    python app.py
+
+  Heavy Neural Mode (Requires full 500MB download):
+    python app.py --neural
 """
 
 import os
 import sys
 import time
 import json
+import argparse
+import threading
 from flask import Flask, render_template, request, jsonify
 
 # Ensure project root is on sys.path
@@ -79,33 +88,52 @@ DEFAULT_CORPUS = [
     "The Pacific Ocean is the largest and deepest of Earth's five oceanic divisions.",
 ]
 
-# Lazy-loaded global instances
+# Threading lock and global instances
+_init_lock = threading.Lock()
 _retriever = None
 _verifier = None
+_USE_NEURAL = False
 
 
 def get_pipeline_components():
-    global _retriever, _verifier
-    if _retriever is None:
-        print("[App] Initializing Evidence Index...")
-        _retriever = EvidenceIndex()
-        # Merge built-in corpus with wiki cache if present
-        corpus = list(DEFAULT_CORPUS)
-        cache_path = os.path.join(PROJECT_ROOT, "data", "fever_wiki_cache.json")
-        if os.path.exists(cache_path):
+    global _retriever, _verifier, _USE_NEURAL
+    with _init_lock:
+        if _retriever is None:
+            backend = "dense" if _USE_NEURAL else "lexical"
+            print(f"[App] Initializing Evidence Index (backend: {backend})...")
             try:
-                with open(cache_path, "r", encoding="utf-8") as f:
-                    wiki = json.load(f)
-                    corpus.extend([v for v in wiki.values() if isinstance(v, str)])
-            except Exception as e:
-                print(f"[App] Note: Wiki cache not loaded: {e}")
-        _retriever.build_index(corpus)
-        print(f"[App] Evidence Index ready ({len(corpus)} passages, backend: {_retriever.active_backend})")
+                _retriever = EvidenceIndex(backend=backend)
+            except Exception:
+                _retriever = EvidenceIndex(backend="lexical")
+            corpus = list(DEFAULT_CORPUS)
+            cache_path = os.path.join(PROJECT_ROOT, "data", "fever_wiki_cache.json")
+            if os.path.exists(cache_path):
+                try:
+                    with open(cache_path, "r", encoding="utf-8") as f:
+                        wiki = json.load(f)
+                        corpus.extend([v for v in wiki.values() if isinstance(v, str)])
+                except Exception:
+                    pass
+            _retriever.build_index(corpus)
+            print(f"[App] Evidence Index ready ({len(corpus)} passages, active: {_retriever.active_backend})")
 
-    if _verifier is None:
-        print("[App] Initializing NLI Claim Verifier...")
-        _verifier = ClaimVerifier()
-        print(f"[App] Verifier ready (backend: {_verifier.active_backend})")
+        if _verifier is None:
+            if not _USE_NEURAL:
+                print("[App] Initializing Instant Fast Verifier...")
+                v = ClaimVerifier(load_model=False)
+                v.active_backend = "fast_heuristic"
+                _verifier = v
+                print("[App] Instant Fast Verifier ready!")
+            else:
+                print("[App] Loading DeBERTa-v3 Neural NLI Verifier...")
+                try:
+                    _verifier = ClaimVerifier(load_model=True)
+                    print(f"[App] Neural Verifier ready (active: {_verifier.active_backend})")
+                except Exception as e:
+                    print(f"[App] Neural model could not be loaded ({e}), using fast heuristic.")
+                    v = ClaimVerifier(load_model=False)
+                    v.active_backend = "fast_heuristic"
+                    _verifier = v
 
     return _retriever, _verifier
 
@@ -125,9 +153,9 @@ def health_check():
     retriever, verifier = get_pipeline_components()
     return jsonify({
         "status": "healthy",
-        "retriever_backend": retriever.active_backend,
-        "verifier_backend": verifier.active_backend,
-        "corpus_size": len(retriever.docs)
+        "retriever_backend": retriever.active_backend if retriever else "lexical",
+        "verifier_backend": "DeBERTa-v3 (Neural)" if (verifier and verifier.active_backend == "nli_model") else "Fast Heuristic (Instant)",
+        "corpus_size": len(retriever.docs) if retriever else len(DEFAULT_CORPUS)
     })
 
 
@@ -135,7 +163,6 @@ def health_check():
 def verify_text():
     data = request.get_json() or {}
     text = data.get("text", "").strip()
-    use_scalar = data.get("use_scalar", False)
 
     if not text:
         return jsonify({"error": "Input text cannot be empty."}), 400
@@ -145,43 +172,71 @@ def verify_text():
 
     # Run the end-to-end detection pipeline
     result: PipelineResult = run_pipeline(
-        text=text,
+        response=text,
         evidence_index=retriever,
-        verifier=verifier,
-        use_scalar=use_scalar
+        verifier=verifier
     )
     elapsed_ms = round((time.time() - start_time) * 1000, 1)
 
     # Format structured response for the UI
     claims_payload = []
     for c in result.claims:
+        v = c.get("verification", {})
+        label = v.get("label", "Unsupported")
+        label_str = label.value if hasattr(label, "value") else str(label)
         claims_payload.append({
-            "claim": c.claim,
-            "label": c.label.value if hasattr(c.label, "value") else str(c.label),
-            "evidence": c.evidence_text,
-            "entailment": round(c.entailment_score, 4),
-            "contradiction": round(c.contradiction_score, 4),
-            "neutral": round(c.neutral_score, 4),
-            "similarity": round(c.similarity_score, 4),
-            "backend": c.backend
+            "claim": c.get("claim", ""),
+            "label": label_str,
+            "evidence": v.get("evidence_text", ""),
+            "entailment": round(v.get("entailment_score", 0.0), 4),
+            "contradiction": round(v.get("contradiction_score", 0.0), 4),
+            "neutral": round(v.get("neutral_score", 0.0), 4),
+            "similarity": round(v.get("similarity_score", 0.0), 4),
+            "backend": v.get("backend", "fast_heuristic")
         })
+
+    summary = result.response_summary
+    h_rate = summary.get("hallucination_rate", 0.0) or 0.0
 
     return jsonify({
         "input_text": text,
         "elapsed_ms": elapsed_ms,
-        "num_claims": result.num_claims,
-        "hallucination_rate": round(result.hallucination_rate, 4),
-        "hallucination_pct": round(result.hallucination_rate * 100, 1),
+        "num_claims": summary.get("num_claims", len(claims_payload)),
+        "hallucination_rate": round(h_rate, 4),
+        "hallucination_pct": round(h_rate * 100, 1),
         "counts": {
-            "supported": result.supported_count,
-            "contradicted": result.contradicted_count,
-            "unsupported": result.unsupported_count
+            "supported": summary.get("supported", 0),
+            "contradicted": summary.get("contradicted", 0),
+            "unsupported": summary.get("unsupported", 0)
         },
         "claims": claims_payload
     })
 
 
+def main():
+    global _USE_NEURAL
+    parser = argparse.ArgumentParser(description="Web UI for Claim-Level Hallucination Detection")
+    parser.add_argument("--neural", action="store_true", help="Launch in heavy neural mode (downloads 500MB DeBERTa model)")
+    args = parser.parse_args()
+
+    _USE_NEURAL = args.neural
+
+    print("\n" + "=" * 65)
+    print(" [Claim-Level Hallucination Detector Web Server]")
+    print("=" * 65)
+    
+    if _USE_NEURAL:
+        print(" -> Mode: NEURAL (DeBERTa-v3 cross-encoder + MiniLM embeddings)")
+    else:
+        print(" -> Mode: FAST / INSTANT (0.1s startup, no waiting or heavy downloads)")
+
+    print(" -> Pre-loading verification components before starting web listener...")
+    get_pipeline_components()
+    print(" -> Components loaded successfully!")
+    print(f" -> Open your browser at: http://127.0.0.1:5000\n")
+
+    app.run(host="127.0.0.1", port=5000, debug=False, threaded=True)
+
+
 if __name__ == "__main__":
-    print("[Starting Claim-Level Hallucination Detection Web UI]")
-    print("Open http://127.0.0.1:5000 in your browser.")
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    main()
