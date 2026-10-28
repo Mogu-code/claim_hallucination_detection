@@ -130,6 +130,45 @@ function renderResults(data) {
   renderClaimCards(data.claims);
 }
 
+// 6. Summary Bar & Score Meter (Milestone 7)
+function renderSummaryBar(data) {
+  const scoreCircle = document.getElementById("score-circle");
+  const scoreRate = document.getElementById("score-rate");
+  const headline = document.getElementById("summary-headline");
+  const detail = document.getElementById("summary-detail");
+  const latency = document.getElementById("summary-latency");
+
+  const supp = data.counts.supported || 0;
+  const contra = data.counts.contradicted || 0;
+  const unsupp = data.counts.unsupported || 0;
+  const total = data.num_claims || 1;
+  const pct = data.hallucination_pct;
+
+  scoreRate.textContent = `${pct}%`;
+  latency.textContent = data.elapsed_ms || 0;
+
+  // Visual meter color
+  scoreCircle.classList.remove("clean", "dirty");
+  if (pct === 0) {
+    scoreCircle.classList.add("clean");
+    headline.textContent = "Fully Factual & Grounded Response";
+    detail.textContent = `All ${total} atomic claims are verified and supported by corpus evidence.`;
+  } else if (pct === 100) {
+    scoreCircle.classList.add("dirty");
+    headline.textContent = "High Hallucination Detected (100%)";
+    detail.textContent = `All ${total} extracted claims contradict or lack factual grounding.`;
+  } else {
+    scoreCircle.classList.add("dirty");
+    headline.textContent = `Partially Hallucinated Response (${pct}%)`;
+    detail.textContent = `${supp} supported, ${contra} contradicted, and ${unsupp} unsupported claims out of ${total}.`;
+  }
+
+  // Count breakdown badges
+  document.getElementById("count-supported").textContent = supp;
+  document.getElementById("count-contradicted").textContent = contra;
+  document.getElementById("count-unsupported").textContent = unsupp;
+}
+
 function renderClaimCards(claims) {
   const container = document.getElementById("claims-container");
   container.innerHTML = "";
@@ -243,10 +282,6 @@ function getDecisionRationale(item) {
   } else {
     return "Evidence neither entailed nor contradicted above calibrated bounds. Classified as Unsupported / NEI.";
   }
-}
-
-function renderSummaryBar(data) {
-  // Implemented in Milestone 7
 }
 
 function escapeHtml(str) {
